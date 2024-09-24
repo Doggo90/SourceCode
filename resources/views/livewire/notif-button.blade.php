@@ -10,7 +10,7 @@
         <style>
             .btn-success.dropdown-toggle::after {
                 content: none;
-            }
+            },
         </style>
     </button>
     @auth
@@ -118,7 +118,7 @@
             @else
                 <ul class="dropdown-menu mt-0 margin-auto dropdown-menu-end">
                     <li class="divide-y divide-green-100 dark:divide-green-400">
-                        <div class="pl-2 flex-grow-1 pe-1">
+                        <div class="pl-2 flex-grow-1 pe-1 text-center">
                             <div class="text-gray-900 text-sm mb-1 dark-text-black-900 ms-4 ">
                                 <span class="font-bold text-black-600 dark-text-black ">No notifications yet.</span>
                             </div>

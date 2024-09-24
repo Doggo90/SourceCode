@@ -102,24 +102,6 @@
                                     </div>
                                 </div>
                                 <hr class="horizontal dark">
-                                <p class="text-uppercase text-sm">Contact Information</p>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Address</label>
-                                            <input class="form-control" type="text" name="address"
-                                                value="{{ old('address', auth()->user()->address) }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Phone <span class="font-weight-light">(optional)</span></label>
-                                            <input class="form-control" type="number" name="phone"
-                                                value="{{ old('phone', auth()->user()->phone) }}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="horizontal dark">
                                 <p class="text-uppercase text-sm">About me</p>
                                 <div class="row">
                                     <div class="col-md-12">

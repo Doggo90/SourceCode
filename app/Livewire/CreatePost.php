@@ -22,7 +22,7 @@ class CreatePost extends Component
 
         $this->validate([
             'title' => 'required | min:2',
-            'body' => 'required | min:2',
+            'body' => 'required | min:2 | max:255',
             'tags' => 'required | min:2',
             'selectedCategories' => 'required',
         ]);
@@ -36,11 +36,11 @@ class CreatePost extends Component
 
         $post->categories()->attach($this->selectedCategories);
         toastr()->success('Post Created Successfully!');
+        $this->redirect('/dashboard');
         $this->title = '';
         $this->body = '';
         $this->tags = '';
         $this->selectedCategories = [];
-        $this->redirect('/dashboard');
 
 
     }

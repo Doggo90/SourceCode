@@ -33,7 +33,7 @@ class LoginController extends Controller
             $user = Auth::user();
             $user->status = 'active';
             $user->save();
-            
+
             return redirect()->intended('dashboard');
         }
 
@@ -49,10 +49,9 @@ class LoginController extends Controller
         $user = Auth::user();
         $user->status = 'inactive';
         $user->save();
-
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/dashboard');
+        return redirect('/login');
     }
 }

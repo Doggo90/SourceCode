@@ -15,8 +15,13 @@ class NotifButton extends Component
 {
 
     public $notifications;
+    public $isDropdownVisible = false;
 
-    public function mount()
+    // Toggles the visibility of the dropdown
+    public function toggleDropdown()
+    {
+        $this->isDropdownVisible = !$this->isDropdownVisible;
+    }    public function mount()
     {
         $this->loadNotifications();
     }

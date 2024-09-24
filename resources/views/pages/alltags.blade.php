@@ -91,6 +91,9 @@
                 </style>
                 <br>
                 <div class="card">
+                    <div class="card-header pb-0 pt-3 bg-transparent d-flex justify-content-center mx-3 text-bold">
+                        <h1><span style="text-transform:uppercase">{{ $tag }}</span></h1>
+                    </div>
                     <div class="card-body">
                         @foreach ($posts as $post)
                             @if ($post->is_archived == 0 && $post->is_approved)

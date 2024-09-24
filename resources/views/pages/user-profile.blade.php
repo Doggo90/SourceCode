@@ -141,7 +141,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="example-text-input" class="form-control-label text-sm">Bio</label>
-                                            <textarea class="form-control" type="text" name="bio" id="bio"
+                                            <textarea maxlength="500" class="form-control" type="text" name="bio" id="bio"
                                                 value="{{ old('bio', auth()->user()->bio) }}" placeholder="Please enter something about yourself."></textarea>
                                         </div>
                                     </div>
@@ -159,14 +159,24 @@
         {{-- USER DETAILS FORM END --}}
 
         {{-- USERS POSTS LIST/HISTORY START --}}
+        @php $posts = $user->posts; @endphp
         <div class="row justify-content-center mt-2">
             <div class="col-md-8 align-items-center">
                 <div class="card card-header">
                     <div class="card-header text-center border-0 pt-0 pt-lg-2 pb-4 pb-lg-3 mt-3">
                         <h3 class="text-2xl"><strong>Posts</strong> </h3>
                     </div>
+                    @if($posts->count() < 1)
                     <div class="card-body pt-0">
-                        @php $posts = $user->posts; @endphp
+                        <div class="row">
+                            <div class="d-flex justify-content-center mx-auto">
+                                <h1>No posts found.</h1>
+                            </div>
+                        </div>
+                        <hr class="horizontal dark">
+                    </div>
+                    @else
+                    <div class="card-body pt-0">
                         @foreach ($posts as $post)
                         <div class="row">
                             <div class="d-flex justify-content-between mx-auto">
@@ -191,6 +201,7 @@
                         <hr class="horizontal dark">
                         @endforeach
                     </div>
+                    @endif
                 </div>
             </div>
             {{-- USERS POSTS LIST/HISTORY END --}}

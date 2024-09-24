@@ -18,7 +18,7 @@
                 <livewire:notif-button />
             </div>
             <div class="d-flex align-items-center dropdown btn-group mt-3 me-1">
-                <button type="button" class="position-absolute focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" data-bs-toggle="dropdown"
+                <button type="button" class="position-absolute focus:outline-none bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" data-bs-toggle="dropdown"
                     aria-expanded="false">
                     {{ \Illuminate\Support\Str::limit(explode(' ', auth()->user()->name)[0], $limit = 15, $end = '...') }}
                 </button>
@@ -31,9 +31,9 @@
                     <li>
                         <form role="form" method="post" action="{{ route('logout') }}" id="logout-form">
                             @csrf
-                            <a href="{{ route('logout') }}" style="text-decoration: none; color:black; "
+                            <a href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                                class="nav-link text-black dropdown-item">
+                                class="nav-link dropdown-item text-black">
                                 Log Out
                             </a>
                         </form>

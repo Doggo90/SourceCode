@@ -113,7 +113,7 @@ class PostController extends Controller
         $second = User::orderByDesc('reputation')->skip(1)->take(1)->first();
         $third = User::orderByDesc('reputation')->skip(2)->take(1)->first();
         $topRep = User::orderByDesc('reputation')->skip(3)->take(7)->get();
-        return view('pages.alltags', compact('posts', 'allposts','mostUpvotes','mostComments','announcements','categories', 'topRep','latestAnn','allCat', 'topRep', 'first', 'second', 'third'));
+        return view('pages.alltags', compact('posts', 'allposts','mostUpvotes','mostComments','announcements','categories', 'topRep','latestAnn','allCat', 'topRep', 'first', 'second', 'third', 'tag'));
     }
 
     /**
@@ -172,9 +172,10 @@ class PostController extends Controller
     }
     public function archives(Request $request)
     {
+        $latestAnn = Announcement::latest()->first();
         $announcements = Announcement::all();
         $allposts = Post::all();
-        return view('pages.archives', compact('announcements', 'allposts'));
+        return view('pages.archives', compact('announcements', 'allposts', 'latestAnn'));
     }
     public function firstLogin(Request $request)
     {
