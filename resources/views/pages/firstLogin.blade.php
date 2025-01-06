@@ -70,98 +70,12 @@
 
         {{-- USER DETAILS FORM START --}}
         <div class="row justify-content-center">
-            <div class="col-md-8 align-items-center">
-
-                @if (auth()->user()->id == $user->id)
-                    <div class="card">
-                        <form role="form" method="POST" action={{ route('welcome.update') }}
-                            enctype="multipart/form-data">
-                            @csrf
-                            <div class="card-header pb-0">
-                                <div class="d-flex align-items-center">
-                                    <p class="mb-0">Edit Profile</p>
-                                    <button type="submit" class="btn btn-primary btn-sm ms-auto">Save</button>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <p class="text-uppercase text-sm">User Information</p>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Name</label>
-                                            <input class="form-control" type="text" name="name" id="name"
-                                                value="{{ old('name', auth()->user()->name) }}" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Email address</label>
-                                            <input class="form-control" type="email" name="email"
-                                                value="{{ old('email', auth()->user()->email) }}" disabled>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="horizontal dark">
-                                <p class="text-uppercase text-sm">Contact Information</p>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Address</label>
-                                            <input class="form-control" type="text" name="address"
-                                                value="{{ old('address', auth()->user()->address) }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Phone <span class="font-weight-light">(optional)</span></label>
-                                            <input class="form-control" type="number" name="phone"
-                                                value="{{ old('phone', auth()->user()->phone) }}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="horizontal dark">
-                                <p class="text-uppercase text-sm">About me</p>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Bio</label>
-                                            <textarea class="form-control" type="text" name="bio" id="bio"
-                                                value="{{ old('bio', auth()->user()->bio) }}" placeholder="Please enter something about yourself."></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Organization</label>
-                                            <select class="form-select" aria-label="Default select example">
-                                                @foreach ($organizations as $organization)
-                                                    <option value="{{ $organization->id }}">{{ $organization->nickname }}</option>
-                                                @endforeach
-                                              </select>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                @endif
-            </div>
+            <livewire:organization-selector :user-id="auth()->user()->id" />
 
         </div>
         {{-- USER DETAILS FORM END --}}
         {{-- USERS POSTS LIST/HISTORY START --}}
-        <div class="row justify-content-center">
-            <div class="col-md-8 align-items-center">
-                <div class="card card-profile">
-                    <div class="card-header text-center border-0 pt-0 pt-lg-2 pb-4 pb-lg-3 mt-3">
-                       <a href="/dashboard" class="btn btn-success px-4 py-3">Join the Community.</a>
-                    </div>
-                </div>
-            </div>
-            {{-- USERS POSTS LIST/HISTORY END --}}
-        </div>
+
         @include('layouts.footers.auth.footer')
     </div>
 @endsection

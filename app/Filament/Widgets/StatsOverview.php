@@ -14,6 +14,10 @@ class StatsOverview extends BaseWidget
     //     'md' => 2,
     //     'xl' => 3,
     // ];
+    protected static ?int $sort = 2;
+
+    
+
     protected function getStats(): array
     {
 

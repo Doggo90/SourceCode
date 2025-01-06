@@ -99,76 +99,83 @@
                     <div class="card-header">
                         <h5 class="text-center text-bold text-xl">Rankings (Reputation)</h5>
                     </div>
-                        <a href="/profile/{{ $first->id }}">
-                            <div class="card-body d-flex justify-content-between pb-0"
-                                style="padding-bottom: 0; padding-top: 0;">
-                                <div class="d-flex justify-content-center">
-                                    <img src="{{ !empty($first->photo) ? url($first->photo) : url('/img/no-image.png') }}"
-                                        alt="profile_image" class="rounded-circle img-fluid border-white pb-4"
-                                        width="40" height="40">
-                                        <span >
-                                            <img src="/img/first.png"
-                                        alt="profile_image" class="rounded-circle img-fluid border-white pb-4 pt-2 me-2"
-                                        width="40" height="40">
-                                        </span>
-                                    <p class="text-bold ms-0 mb-0 pt-3">
-                                        {{ \Illuminate\Support\Str::limit(explode(' ', $first->name)[0], $limit = 15, $end = '...') }}
-                                        <span>
-                                            ({{ $first->organizations->nickname }})
-                                        </span>
+                    <a href="/profile/{{ $first->id }}">
+                        <div class="card-body d-flex justify-content-between pb-0"
+                            style="padding-bottom: 0; padding-top: 0;">
+                            <div class="d-flex justify-content-center">
+                                <img src="{{ !empty($first->photo) ? url($first->photo) : url('/img/no-image.png') }}"
+                                    alt="profile_image" class="rounded-circle img-fluid border-white pb-4" width="40"
+                                    height="40">
+                                <span>
+                                    <img src="/img/first.png" alt="profile_image"
+                                        class="rounded-circle img-fluid border-white pb-4 pt-2 me-2" width="40"
+                                        height="40">
+                                </span>
+                                <p class="text-bold ms-0 mb-0 pt-3">
+                                    {{ \Illuminate\Support\Str::limit(explode(' ', $first->name)[0], $limit = 15, $end = '...') }}
+                                    <span>
+                                        @foreach ($firstOrgs as $org)
+                                            ({{ $org->nickname }})
+                                        @endforeach
+                                    </span>
 
-                                    </p>
-                                </div>
-                                <p class="text-bold">{{ $first->reputation }}</p>
+                                </p>
                             </div>
-                        </a>
-                        <a href="/profile/{{ $second->id }}">
-                            <div class="card-body d-flex justify-content-between pb-0"
-                                style="padding-bottom: 0; padding-top: 0;">
-                                <div class="d-flex justify-content-center">
-                                    <img src="{{ !empty($second->photo) ? url($second->photo) : url('/img/no-image.png') }}"
-                                        alt="profile_image" class="rounded-circle img-fluid border-white pb-4"
-                                        width="40" height="40">
-                                        <span >
-                                            <img src="/img/second.png"
-                                        alt="profile_image" class="rounded-circle img-fluid border-white pb-4 pt-2 me-2"
-                                        width="30" height="30">
-                                        </span>
-                                    <p class="text-bold ms-0 mb-0 pt-3">
-                                        {{ \Illuminate\Support\Str::limit(explode(' ', $second->name)[0], $limit = 15, $end = '...') }}
-                                        <span>
-                                            ({{ $second->organizations->nickname }})
-                                        </span>
+                            <p class="text-bold">{{ $first->reputation }}</p>
+                        </div>
+                    </a>
+                    <a href="/profile/{{ $second->id }}">
+                        <div class="card-body d-flex justify-content-between pb-0"
+                            style="padding-bottom: 0; padding-top: 0;">
+                            <div class="d-flex justify-content-center">
+                                <img src="{{ !empty($second->photo) ? url($second->photo) : url('/img/no-image.png') }}"
+                                    alt="profile_image" class="rounded-circle img-fluid border-white pb-4" width="40"
+                                    height="40">
+                                <span>
+                                    <img src="/img/second.png" alt="profile_image"
+                                        class="rounded-circle img-fluid border-white pb-4 pt-2 me-2" width="30"
+                                        height="30">
+                                </span>
+                                <p class="text-bold ms-0 mb-0 pt-3">
+                                    {{ \Illuminate\Support\Str::limit(explode(' ', $second->name)[0], $limit = 15, $end = '...') }}
+                                    <span>
+                                        @foreach ($secOrgs as $org)
+                                            ({{ $org->nickname }})
+                                        @endforeach
+                                    </span>
 
-                                    </p>
-                                </div>
-                                <p class="text-bold">{{ $second->reputation }}</p>
+                                </p>
                             </div>
-                        </a>
+                            <p class="text-bold">{{ $second->reputation }}</p>
+                        </div>
+                    </a>
 
-                        <a href="/profile/{{ $third->id }}">
-                            <div class="card-body d-flex justify-content-between pb-0"
-                                style="padding-bottom: 0; padding-top: 0;">
-                                <div class="d-flex justify-content-center">
-                                    <img src="{{ !empty($third->photo) ? url($third->photo) : url('/img/no-image.png') }}"
-                                        alt="profile_image" class="rounded-circle img-fluid border-white pb-4"
-                                        width="40" height="40">
-                                        <span >
-                                            <img src="/img/third.png"
-                                        alt="profile_image" class="rounded-circle img-fluid border-white pb-4 pt-2 me-2"
-                                        width="30" height="30">
-                                        </span>
-                                    <p class="text-bold ms-0 mb-0 pt-3">
-                                        {{ \Illuminate\Support\Str::limit(explode(' ', $third->name)[0], $limit = 15, $end = '...') }}
-                                        <span>
-                                            ({{ $third->organizations->nickname }})
-                                        </span>
+                    <a href="/profile/{{ $third->id }}">
+                        <div class="card-body d-flex justify-content-between pb-0"
+                            style="padding-bottom: 0; padding-top: 0;">
+                            <div class="d-flex justify-content-center">
+                                <img src="{{ !empty($third->photo) ? url($third->photo) : url('/img/no-image.png') }}"
+                                    alt="profile_image" class="rounded-circle img-fluid border-white pb-4" width="40"
+                                    height="40">
+                                <span>
+                                    <img src="/img/third.png" alt="profile_image"
+                                        class="rounded-circle img-fluid border-white pb-4 pt-2 me-2" width="30"
+                                        height="30">
+                                </span>
+                                <p class="text-bold ms-0 mb-0 pt-3">
+                                    {{ \Illuminate\Support\Str::limit(explode(' ', $third->name)[0], $limit = 15, $end = '...') }}
+                                    <span>
+                                        @foreach ($thirdOrgs as $org)
+                                            ({{ $org->nickname }})
+                                        @endforeach
+                                    </span>
 
-                                    </p>
-                                </div>
-                                <p class="text-bold">{{ $third->reputation }}</p>
+
+                                </p>
                             </div>
-                        </a>
+                            <p class="text-bold">{{ $third->reputation }}</p>
+                        </div>
+                    </a>
                     @foreach ($topRep as $top)
                         <a href="/profile/{{ $top->id }}">
                             <div class="card-body d-flex justify-content-between pb-0"
@@ -179,8 +186,13 @@
                                         width="40" height="40">
                                     <p class="text-bold ms-3">
                                         {{ \Illuminate\Support\Str::limit(explode(' ', $top->name)[0], $limit = 15, $end = '...') }}
+                                        @php
+                                            $topOrg = $top->organizations()->get();
+                                        @endphp
                                         <span>
-                                            ({{ $top->organizations->nickname }})
+                                            (@foreach ($topOrg as $org)
+                                                {{ $org->nickname }},
+                                            @endforeach)
                                         </span>
                                     </p>
                                 </div>
@@ -200,90 +212,3 @@
         @include('layouts.footers.auth.footer')
     </div>
 @endsection
-
-@push('js')
-    <script src="./assets/js/plugins/chartjs.min.js"></script>
-    <script>
-        var ctx1 = document.getElementById("chart-line").getContext("2d");
-
-        var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
-
-        gradientStroke1.addColorStop(1, 'rgba(251, 99, 64, 0.2)');
-        gradientStroke1.addColorStop(0.2, 'rgba(251, 99, 64, 0.0)');
-        gradientStroke1.addColorStop(0, 'rgba(251, 99, 64, 0)');
-        new Chart(ctx1, {
-            type: "line",
-            data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "Mobile apps",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    pointRadius: 0,
-                    borderColor: "#fb6340",
-                    backgroundColor: gradientStroke1,
-                    borderWidth: 3,
-                    fill: true,
-                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                    maxBarThickness: 6
-
-                }],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            padding: 10,
-                            color: '#fbfbfb',
-                            font: {
-                                size: 11,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            color: '#ccc',
-                            padding: 20,
-                            font: {
-                                size: 11,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                },
-            },
-        });
-    </script>
-@endpush

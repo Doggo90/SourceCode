@@ -94,9 +94,9 @@ class User extends Authenticatable implements FilamentUser
     public function hasUpvoted(Post $post){
         return $this->likes()->where('post_id', $post->id)->exists();
     }
-    public function organizations(): belongsTo
+    public function organizations(): belongsToMany
     {
-        return $this->belongsTo(Organization::class, 'organization_id');
+        return $this->belongsToMany(Organization::class);
     }
     public function canAccessPanel(Panel $panel): bool
     {

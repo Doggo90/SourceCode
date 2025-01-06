@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Organization extends Model
 {
@@ -13,8 +14,8 @@ class Organization extends Model
     protected $guarded = [];
 
 
-    public function users(): HasMany
+    public function users(): belongsToMany
     {
-        return $this->hasMany(User::class, 'organization_id');
+        return $this->belongsToMany(User::class);
     }
 }

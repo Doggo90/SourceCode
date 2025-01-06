@@ -13,7 +13,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        aria-labelledby="staticBackdropLabel" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header d-flex justify-content-between align-items-center text-center">
@@ -22,25 +22,29 @@
                 </div>
                 <div class="modal-body">
                     <br>
-                    <form wire:submit.prevent="createPost" class="row g-3 mb-0" action="" wire:ignore>
+                    <form wire:submit.prevent="createPost" class="row g-3 mb-0" action="POST" wire:ignore>
                         @csrf
                         <div class="row mb-2 ms-auto">
                             <input class="form-control mb-3" rows="3" name="title" id="title"
-                                wire:model="title" placeholder="Post Title. ">
+                                wire:model="title" placeholder="Post Title. " required="">
                             @error('title')
                                 <p class="p text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
 
                             <input class="form-control mb-3" rows="3" name="tags" id="tags"
-                                wire:model="tags" placeholder="Tags(Comma Separated)">
+                                wire:model="tags" placeholder="Tags(Comma Separated)" required="">
                             @error('tags')
                                 <p class="p text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
 
-                            <select class="form-select mb-3" aria-label="multiple select example"name="selectedCategories" id="selectedCategories" wire:model="selectedCategories">
-                                <option selected>Select a category...</option>
-                                @foreach (\App\Models\Category::all() as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }} </option>
+                            <select class="form-select mb-3"
+                                aria-label="multiple select example"name="selectedCategories" id="selectedCategories"
+                                wire:model="selectedCategories" required="">
+                                <option value="">Select a category...</option>
+                                @foreach (\App\Models\Category::all() as $key => $category)
+                                    <option value="{{ $category->id }}" {{ $key === 0 ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
                                 @endforeach
                             </select>
                             @error('selectedCategories')
@@ -49,16 +53,25 @@
 
                         </div>
                         <div class="row mb-2 ms-auto">
-                            <textarea class="form-control mb-0 pb-0" rows="3" name="body" id="body" wire:model="body"
-                                placeholder="Post Context"></textarea>
+                            <textarea maxlength="500" class="form-control mb-0 pb-0" rows="3" name="body" id="body" wire:model="body"
+                                placeholder="Post Context" required=""></textarea>
                             @error('body')
                                 <p class="p text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>
-                        <button type="submit" wire:click="createPost" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Submit Post</button>
+                        <button type="submit" wire:click="createPost"
+                            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-lg px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                            Submit
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    window.addEventListener('close-modal', event => {
+        const modal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+        modal.hide();
+    });
+</script>

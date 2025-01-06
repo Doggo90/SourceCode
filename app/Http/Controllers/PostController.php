@@ -35,12 +35,15 @@ class PostController extends Controller
         ->sortByDesc('comments_count')
         ->first();
         $first = User::orderByDesc('reputation')->first();
+        $firstOrgs = $first->organizations()->get();
         $second = User::orderByDesc('reputation')->skip(1)->take(1)->first();
+        $secOrgs = $second->organizations()->get();
         $third = User::orderByDesc('reputation')->skip(2)->take(1)->first();
+        $thirdOrgs = $third->organizations()->get();
         $topRep = User::orderByDesc('reputation')->skip(3)->take(7)->get();
         // dd($topRep);
 
-        return view('pages.dashboard', compact('allposts','mostUpvotes','mostComments','announcements','categories', 'topRep', 'first', 'second', 'third','allCat', 'latestAnn'));
+        return view('pages.dashboard', compact('allposts','mostUpvotes','mostComments','announcements','categories', 'topRep', 'first', 'second', 'third','allCat', 'latestAnn', 'firstOrgs', 'secOrgs','thirdOrgs'));
     }
 
     public function AnnouncementShow(Announcement $announcement){
@@ -185,18 +188,20 @@ class PostController extends Controller
     public function firstLoginUpdate(Request $request, User $user)
     {
         $attributes = $request->validate([
-            'phone' => ['required','max:11', 'min:11'],
-            'address' => ['max:255'],
-            'bio' => ['max:255']
+            'bio' => ['max:255'],
         ]);
 
+
+
         auth()->user()->update([
-            'phone' => $request->get('phone'),
-            'address' => $request->get('address'),
             'bio' => $request->get('bio'),
         ]);
+
         $user = auth()->user();
-        return view('pages.firstLogin', compact('user'));
+        $user->organizations()->sync($request->input('organizations'));
+
+        // toastr()->success('');
+        return redirect('/dashboard')->with('success', 'Profile created successfully!');
     }
     public function suspended()
     {

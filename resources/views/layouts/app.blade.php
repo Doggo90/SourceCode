@@ -71,6 +71,7 @@
     <script src="{{asset('assets/js/argon-dashboard.js')}}"></script>
     @stack('js')
     @livewireScripts
+    <script src="//unpkg.com/alpinejs" defer></script>
 
 </body>
 
