@@ -35,10 +35,10 @@ class PostController extends Controller
         ->sortByDesc('comments_count')
         ->first();
         $first = User::orderByDesc('reputation')->first();
-        $firstOrgs = $first->organizations()->get();
         $second = User::orderByDesc('reputation')->skip(1)->take(1)->first();
-        $secOrgs = $second->organizations()->get();
         $third = User::orderByDesc('reputation')->skip(2)->take(1)->first();
+        $firstOrgs = $first->organizations()->get();
+        $secOrgs = $second->organizations()->get();
         $thirdOrgs = $third->organizations()->get();
         $topRep = User::orderByDesc('reputation')->skip(3)->take(7)->get();
         // dd($topRep);
@@ -115,8 +115,11 @@ class PostController extends Controller
         $first = User::orderByDesc('reputation')->first();
         $second = User::orderByDesc('reputation')->skip(1)->take(1)->first();
         $third = User::orderByDesc('reputation')->skip(2)->take(1)->first();
+        $firstOrgs = $first->organizations()->get();
+        $secOrgs = $second->organizations()->get();
+        $thirdOrgs = $third->organizations()->get();
         $topRep = User::orderByDesc('reputation')->skip(3)->take(7)->get();
-        return view('pages.alltags', compact('posts', 'allposts','mostUpvotes','mostComments','announcements','categories', 'topRep','latestAnn','allCat', 'topRep', 'first', 'second', 'third'));
+        return view('pages.alltags', compact('posts', 'allposts','mostUpvotes','mostComments','announcements','categories', 'topRep','latestAnn','allCat', 'topRep', 'first', 'second', 'third', 'firstOrgs', 'secOrgs', 'thirdOrgs'));
     }
 
     /**

@@ -161,7 +161,9 @@
                                 <p class="text-bold ms-0 mb-0 pt-3">
                                     {{ \Illuminate\Support\Str::limit(explode(' ', $first->name)[0], $limit = 15, $end = '...') }}
                                     <span class="text-bold">
-                                        ({{ $first->organizations->nickname }})
+                                        @foreach ($firstOrgs as $org)
+                                            ({{ $org->nickname }})
+                                        @endforeach
                                     </span>
 
                                 </p>
@@ -184,7 +186,9 @@
                                 <p class="text-bold ms-0 mb-0 pt-3">
                                     {{ \Illuminate\Support\Str::limit(explode(' ', $second->name)[0], $limit = 15, $end = '...') }}
                                     <span>
-                                        ({{ $second->organizations->nickname }})
+                                        @foreach ($secOrgs as $org)
+                                            ({{ $org->nickname }})
+                                        @endforeach
                                     </span>
 
                                 </p>
@@ -208,7 +212,9 @@
                                 <p class="text-bold ms-0 mb-0 pt-3">
                                     {{ \Illuminate\Support\Str::limit(explode(' ', $third->name)[0], $limit = 15, $end = '...') }}
                                     <span>
-                                        ({{ $third->organizations->nickname }})
+                                        @foreach ($secOrgs as $org)
+                                            ({{ $org->nickname }})
+                                        @endforeach
                                     </span>
 
                                 </p>
@@ -226,8 +232,13 @@
                                         width="40" height="40">
                                     <p class="text-bold ms-3">
                                         {{ \Illuminate\Support\Str::limit(explode(' ', $top->name)[0], $limit = 15, $end = '...') }}
+                                        @php
+                                            $topOrg = $top->organizations()->get();
+                                        @endphp
                                         <span>
-                                            ({{ $top->organizations->nickname }})
+                                            (@foreach ($topOrg as $org)
+                                                {{ $org->nickname }},
+                                            @endforeach)
                                         </span>
                                     </p>
                                 </div>

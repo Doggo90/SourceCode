@@ -162,7 +162,16 @@
                     </div>
                     <div class="card-body pt-0">
                         @php $posts = $user->posts; @endphp
+                        @if($posts->count() == 0)
+                        <div class="row">
+                            <div class="d-flex align-items-center justify-content-center mx-auto">
+                               <h2><strong> No Posts Found.</strong></h2>
+                            </div>
+                        </div>
+                        @endif
                         @foreach ($posts as $post)
+                            @if ($post->is_approved == 1)
+
                             <div class="row">
                                 <div class="d-flex justify-content-between mx-auto">
                                     <a href="/post/{{ $post->id }}" class="d-flex justify-content-between w-100">
@@ -184,6 +193,8 @@
                                     </a>
                                 </div>
                             </div>
+
+                            @endif
                             <hr class="horizontal dark">
                         @endforeach
                     </div>

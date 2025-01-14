@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('username')->nullable();
             $table->string('email')->unique();
             $table->integer('reputation')->default(0);
+            $table->integer('likes_counter')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('google_id')->nullable();

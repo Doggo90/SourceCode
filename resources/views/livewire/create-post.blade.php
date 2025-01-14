@@ -6,10 +6,16 @@
         }
 
     </style>
-    <!-- Button trigger modal -->
+    {{-- <!-- Button trigger modal -->
     <button type="button" class="block text-white bg-green-500 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-500 custom-button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
        <strong>What's on your mind?</strong>
-    </button>
+    </button> --}}
+    <input type="text"
+       class="block text-black-600 font-medium rounded-lg text-sm px-5 py-2.5 text-start custom-button"
+       placeholder="What's on your mind?"
+       data-bs-toggle="modal"
+       data-bs-target="#staticBackdrop"
+       readonly>
 
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

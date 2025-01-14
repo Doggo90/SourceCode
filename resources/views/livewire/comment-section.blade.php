@@ -25,10 +25,10 @@
                             }
                         }
                     }">
-                        <textarea class="form-control" rows="2" name="comment_body" id="comment_body" wire:model="comment_body"
+                        <textarea class="form-control" rows="1" name="comment_body" id="comment_body" wire:model="comment_body"
                             wire:model.live.debounce.500ms="search" @keydown.="handleKeydown"
                             placeholder="Join the discussion and leave a comment!" wire:keydown.enter="createComment" maxlength='200'
-                            minlength='10'>
+                            minlength='2'>
                         </textarea>
                         <div x-show="open" @click.away="open = false" x-cloak class="card">
                             <ul class="mt-0 margin-auto card-header" style="list-style-type: none">
@@ -72,7 +72,12 @@
                             class="btn btn-success position-absolute bottom-0 end-0 mb-2 me-4 justify-items-center">
 
                         </button> --}}
-                        <button type="submit" class="py-2 px-3 position-absolute bottom-0 end-0 mb-2 me-4 justify-items-center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm  dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"><i class="fa fa-paper-plane"></i></button>
+                        <button type="submit" class="py-2 px-2 position-absolute bottom-0 end-0 mb-2 me-4 justify-items-center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm  dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                            <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+                                <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+                              </svg>
+                              </span>
+                        </button>
                         @error('comment_body')
                             <p class="p text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror

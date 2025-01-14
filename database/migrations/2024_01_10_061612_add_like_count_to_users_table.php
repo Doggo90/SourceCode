@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('likes_counter')->nullable();
-        });
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->unsignedBigInteger('likes_counter')->nullable();
+        // });
     }
 
     /**
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-             Schema::dropIfExists('likes_counter');
-        });
+        // Schema::table('users', function (Blueprint $table) {
+        //      Schema::dropIfExists('likes_counter');
+        // });
     }
 };

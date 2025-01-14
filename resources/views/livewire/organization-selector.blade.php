@@ -63,7 +63,7 @@
                             <label for="organization" class="form-control-label">Organization</label>
                             <select
                                 x-on:change="selectedOrganizations.push($event.target.value); $event.target.value = ''"
-                                class="form-select" id="organization" aria-label="Select organization" required>
+                                class="form-select" id="organization" aria-label="Select organization" >
                                 <option value="" disabled selected>Select an organization...</option>
                                 <template x-for="(name, id) in organizations" :key="id">
                                     <option :value="id" x-text="name"

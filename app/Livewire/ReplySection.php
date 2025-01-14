@@ -98,7 +98,8 @@ class ReplySection extends Component
         // Reset mentionedUsers array
         $this->mentionedUsers = [];
         $this->body = '';
-        toastr()->success('Reply posted!');
+        // toastr()->success('Reply posted!');
+        flash('Replied', 'success');
 
     }
 

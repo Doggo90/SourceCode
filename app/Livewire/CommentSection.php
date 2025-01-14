@@ -39,8 +39,8 @@ class CommentSection extends Component
             'comment_body' => 'required | min:2',
         ]);
         $comments2 = Comment::where('post_id', $this->post->id)->get();
-        if ($comments2->where('user_id', auth()->user()->id)->count() > 99) {
-            toastr()->error('You already commented on this post.');
+        if ($comments2->where('user_id', auth()->user()->id)->count() > 1) {
+            flash('You already commented on this post.', 'error');
         } else {
             $comment = Comment::create([
                 'user_id' => auth()->user()->id,
@@ -91,7 +91,7 @@ class CommentSection extends Component
             }
             $this->mentionedUsers = [];
             $this->comment_body = '';
-            toastr()->success('Comment posted!');
+            flash('Comment Posted', 'success');
         }
     }
     public function mentionUser($email,Comment $comment){

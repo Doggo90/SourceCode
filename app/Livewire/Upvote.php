@@ -24,17 +24,19 @@ class Upvote extends Component
             $user->likes()->detach($this->post);
             $user->decrement('reputation', 1);
             $user->decrement('likes_counter', 1);
-            toastr()->info('Upvote removed!');
+            flash('Upvote Removed!', 'info');
             return;
         }
         if($user->likes_counter < $totalLikesPerWeek){
             $user->likes()->attach($this->post);
             $user->increment('reputation', 1);
             $user->increment('likes_counter', 1);
-            toastr()->success('Upvoted!');
+            flash( 'Upvoted!','success');
         }else{
-            toastr()->error('Total likes per week reached!');
-            return redirect()->back();
+            // toastr()->error('Total likes per week reached!');
+            // return redirect()->back()->with('success', 'Post Submitted!');
+            flash( 'Total likes per week reached! Resets every Monday @ 6AM','error');
+            // ->with('success', 'Total likes per week reached!');
 
         }
 

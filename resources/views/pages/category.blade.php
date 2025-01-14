@@ -106,7 +106,7 @@
                             </div>
                         @else
                             @foreach ($categories1 as $category)
-                                @if ($category->is_archived == 0)
+                                @if ($category->is_archived == 0 && $category->is_approved == 1)
                                     <div>
                                         <a href="/post/{{ $category->id }}">
                                             <div class="card z-index-2 mb-2" style="max-height: 200px; overflow: hidden;">

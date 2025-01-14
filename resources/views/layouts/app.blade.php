@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="/img/logo.png">
     <title>
         Acad Forum
-    </title>
+</title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
@@ -19,7 +19,6 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="{{asset('assets/css/argon-dashboard.css')}}" rel="stylesheet" />
     @livewireStyles
-
     @vite('resources/css/app.css')
 
     <style>
