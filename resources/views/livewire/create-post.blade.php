@@ -11,7 +11,7 @@
        <strong>What's on your mind?</strong>
     </button> --}}
     <input type="text"
-       class="block text-black-600 font-medium rounded-lg text-sm px-5 py-2.5 text-start custom-button"
+       class="block text-black-800 font-medium rounded-lg text-md px-5 py-2.5 text-start custom-button"
        placeholder="What's on your mind?"
        data-bs-toggle="modal"
        data-bs-target="#staticBackdrop"

@@ -24,14 +24,17 @@
                             </div>
 
                                 {{--                ANNNOUNCEMENT BODY                  --}}
-                            <div class="card-body d-flex justify-items-center">
+                            <div class="d-flex align-items-center justify-content-center">
 
-                                    <img class="img-fluid d-flex" src="/storage/{{ $announcement->image }}" alt="" style="max-width: 100%; ">
-                                    <br><br><br>
+                                <a href="{{ asset('storage/' . $announcement->image) }}" class="d-flex align-items-center justify-content-center mb-3">
+                                    <img class="img-fluid d-flex align-items-center justify-content-center mb-3" src="/storage/{{ $announcement->image }}" alt="" style="max-width: 70%; ">
+                                </a>
                             </div>
-                            <div>
+                            <div class="card-body">
+                                <h2>
 
-                                <p class="fs-5 mb-4">{{ $announcement->body }}</p>
+                                    {!! nl2br(preg_replace('/(https?:\/\/[^\s]+)/', '<a href="$1" target="_blank">$1</a>', $announcement->body)) !!}
+                                </h2>
                             </div>
                             <br>
                         </div>

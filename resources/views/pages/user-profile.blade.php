@@ -46,7 +46,9 @@
                     <div class="row justify-content-center">
                         <div class="col-4 col-lg-4 order-lg-2 d-flex justify-content-center align-items-center">
                             <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
-                                <img src="{{ !empty($user->photo) ? url($user->photo) : url('/img/no-image.png') }}"
+                                <img src="
+                                {{-- /img/no-image.png" --}}
+                                {{ !empty($user->photo) ? url($user->photo) : url('/img/no-image.png') }}"
                                     alt="profile_image" class="rounded-circle img-fluid border border-2 border-white"
                                     width="200" height="200">
                             </div>

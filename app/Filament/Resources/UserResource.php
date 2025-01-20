@@ -44,10 +44,10 @@ class UserResource extends Resource
 
                     ->schema([
 
-                        Forms\Components\TextInput::make('name'),
-                        Forms\Components\TextInput::make('email'),
-                        Forms\Components\TextInput::make('phone'),
-                        Forms\Components\TextInput::make('address'),
+                        Forms\Components\TextInput::make('name')
+                        ->disabled(),
+                        Forms\Components\TextInput::make('email')
+                        ->disabled(),
                         Forms\Components\Select::make('role')
                             ->options([
                                 'admin' => 'admin',
@@ -57,6 +57,7 @@ class UserResource extends Resource
                             ->default('user'),
                         Forms\Components\Select::make('organization_id')
                             ->relationship('organizations', 'nickname')
+                            ->disabled(),
                     ])
 
                 ])
@@ -218,12 +219,16 @@ class UserResource extends Resource
     {
         return [
             'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
+            // 'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
     public static function canViewAny(): bool
     {
         return auth()->user()->role == 'admin';
+    }
+    public static function canCreate(): bool
+    {
+        return false; // Disables the "New User" button
     }
 }

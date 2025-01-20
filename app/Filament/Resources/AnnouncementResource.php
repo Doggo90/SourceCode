@@ -31,15 +31,17 @@ class AnnouncementResource extends Resource
 
                 Forms\Components\TextInput::make('title')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(5000),
                 FileUpload::make('image')
                     ->disk('public')
-                    ->directory('prospects/json')
-                    ->image(),
-                Forms\Components\Textarea::make('body')
-                    ->rows(3)
+                    ->directory('prospects/json'),
+                    // ->image()
+                Forms\Components\RichEditor::make('body')
+                    // ->rows(3)
                     ->required()
-                    ->autosize(),
+                    // ->autosize()
+                    ->maxLength(5000),
+
             ]);
     }
 

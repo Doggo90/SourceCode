@@ -18,7 +18,23 @@
             .btn-success.dropdown-toggle::after {
                 content: none;
             }
-        </style>
+            .notification-link {
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            .notification-link:hover {
+                background-color: #e0f7fa; /* Change to your desired hover background color */
+                color: #00796b; /* Change to your desired hover text color */
+            }
+
+            .notification-link:hover .text-gray-500 {
+                color: #004d40; /* Change to your desired hover text color */
+            }
+
+            .notification-link:hover .text-blue-500 {
+                color: #004d40; /* Change to your desired hover text color */
+            }
+            </style>
     </button>
     @auth
         @if (Auth::user()?->unreadNotifications->count())
@@ -32,7 +48,7 @@
                     @if ($notificationType === 'App\Notifications\CommentNotif')
                         <li class="divide-y divide-green-100 dark:divide-green-400">
                             <a wire:click="markAsRead('{{ $notification->id }}')" href="{{ $notification->data['link'] }}"
-                                class="d-flex p-2 hover-bg-green-100 dark-hover-bg-green-400 align-items-center">
+                                class="d-flex p-2 hover-bg-green-100 dark-hover-bg-green-400 align-items-center notification-link">
                                 <img class="img-fluid rounded-circle me-3" style="width: 2rem; height: 2rem;"
                                     src="{{ !empty($notification->data['photo']) ? url($notification->data['photo']) : url('/img/no-image.png') }}"
                                     alt="commenter img">
@@ -55,7 +71,7 @@
                     @if ($notificationType === 'App\Notifications\ReplyNotif')
                         <li class="divide-y divide-green-100 dark:divide-green-400">
                             <a wire:click="markAsRead('{{ $notification->id }}')" href="{{ $notification->data['link'] }}"
-                                class="d-flex  p-2 hover-bg-green-100 dark-hover-bg-green-400 align-items-center">
+                                class="d-flex  p-2 hover-bg-green-100 dark-hover-bg-green-400 align-items-center notification-link">
                                 <img class="img-fluid rounded-circle me-3" style="width: 2rem; height: 2rem;"
                                     src="{{ !empty($notification->data['photo']) ? url($notification->data['photo']) : url('/img/no-image.png') }}"
                                     alt="commenter img">
@@ -78,7 +94,7 @@
                     @if ($notificationType === 'App\Notifications\MentionNotif')
                         <li class="divide-y divide-green-100 dark:divide-green-400">
                             <a wire:click="markAsRead('{{ $notification->id }}')" href="{{ $notification->data['link'] }}"
-                                class="d-flex p-2 hover-bg-green-100 dark-hover-bg-green-400 align-items-center">
+                                class="d-flex p-2 hover-bg-green-100 dark-hover-bg-green-400 align-items-center notification-link">
                                 <img class="img-fluid rounded-circle me-3" style="width: 2rem; height: 2rem;"
                                     src="{{ !empty($notification->data['photo']) ? url($notification->data['photo']) : url('/img/no-image.png') }}"
                                     alt="commenter img">
@@ -101,7 +117,7 @@
                     @if ($notificationType === 'App\Notifications\ReplyMention')
                         <li class="divide-y divide-green-100 dark:divide-green-400">
                             <a wire:click="markAsRead('{{ $notification->id }}')" href="{{ $notification->data['link'] }}"
-                                class="d-flex p-2 hover-bg-green-100 dark-hover-bg-green-400 align-items-center">
+                                class="d-flex p-2 hover-bg-green-100 dark-hover-bg-green-400 align-items-center notification-link">
                                 <img class="img-fluid rounded-circle me-3" style="width: 2rem; height: 2rem;"
                                     src="{{ !empty($notification->data['photo']) ? url($notification->data['photo']) : url('/img/no-image.png') }}"
                                     alt="commenter img">

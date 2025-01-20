@@ -52,7 +52,8 @@
                                                 href="#" class="d-flex align-items-center">
                                                 <img class="img-fluid rounded-circle me-3"
                                                     style="width: 2rem; height: 2rem;"
-                                                    src="{{ !empty($result->photo) ? url($result->photo) : url('/img/no-image.png') }}"
+                                                    src="/img/no-image.png"
+                                                    {{-- {{ !empty($result->photo) ? url($result->photo) : url('/img/no-image.png') }}" --}}
                                                     alt="commenter img">
                                                 <div class="pl-2 flex-grow-1">
                                                     <div class="text-gray-500 text-sm mb-1 dark-text-black-400">
@@ -220,7 +221,7 @@
 
                                                 $modifiedCommentBody = preg_replace(
                                                     '/@' . preg_quote($username, '/') . '\b/',
-                                                    "<a href='$profileLink'>@".$uniqueUsername."</a>",
+                                                    "<a href='$profileLink'>@".$username."</a>",
                                                     $modifiedCommentBody,
                                                     1,
                                                     $count,

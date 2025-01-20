@@ -8,17 +8,19 @@
     <link rel="icon" type="image/png" href="/img/logo.png">
     <title>
         Acad Forum
-</title>
+    </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
     <link href="{{asset('assets/css/nucleo-icons.css')}}" rel="stylesheet" />
     <link href="{{asset('assets/css/nucleo-svg.css')}}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <!-- CSS Files -->
     <link id="pagestyle" href="{{asset('assets/css/argon-dashboard.css')}}" rel="stylesheet" />
     @livewireStyles
+
     @vite('resources/css/app.css')
 
     <style>
@@ -44,9 +46,13 @@
 <body class="{{ $class ?? '' }}">
     <style>
         main{
+            min-height: 100vh;
+            /* flex: 1; */
             background-image: url('https://i.postimg.cc/jqDcHdyc/cropbg.jpg');
-            background-repeat: no-repeat;
             background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
     </style>
         @guest
@@ -70,7 +76,6 @@
     <script src="{{asset('assets/js/argon-dashboard.js')}}"></script>
     @stack('js')
     @livewireScripts
-    <script src="//unpkg.com/alpinejs" defer></script>
 
 </body>
 

@@ -6,89 +6,14 @@
         {{-- START FEATURED POSTS || ANNOUCEMENTS --}}
         <div class="row">
             <div class="col-lg-3 col-sm-12 mb-xl-0 mb-4">
-                <div>
-                    @php
-                        use App\Models\Post;
-                        $mostLikedPost = Post::withCount('likes')
-                            ->where('is_archived', false)
-                            ->orderBy('likes_count', 'desc')
-                            ->first();
-                        // dd($mostLikedPost);
-                    @endphp
-                    <a href="/post/{{ $mostLikedPost->id }}">
-                        <div class="card">
-                            <div class="card-body p-3">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="numbers">
-                                            <p class="text-sm mb-0 text-uppercase font-weight-bold">Most Upvoted Post</p>
-                                            <h5 class="font-weight-bolder">
-                                                {{ $mostLikedPost->title }}
 
-                                            </h5>
-                                            <p class="mb-0">
-                                                <i class="fa fa-arrow-up text-success me-2"></i>
-                                                <span class="font-weight-bold">{{ $mostLikedPost->likes()->count() }}</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 text-end">
-                                        <div
-                                            class="icon icon-shape bg-gradient-success shadow-primary text-center rounded-circle">
-                                            <i class="ni ni-like-2 text-lg opacity-10" aria-hidden="true"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                @php
-                    $hottestPost = Post::withCount('comments')
-                        ->where('is_archived', false)
-                        ->orderBy('comments_count', 'desc')
-                        ->first();
-                    // dd($hottestPost);
-                @endphp
-                <div class="mt-2">
-                    <a href="/post/{{ $hottestPost->id }}">
-                        <div class="card">
-                            <div class="card-body p-3">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="numbers">
-                                            <p class="text-sm mb-0 text-uppercase font-weight-bold">HOTTEST POST</p>
-                                            <h5 class="font-weight-bolder">
-                                                {{ $hottestPost->title }}
-                                            </h5>
-                                            <p class="mb-0">
-                                                <i class="fa fa-comment text-success me-2"></i>
-                                                <span
-                                                    class="font-weight-bold">{{ $hottestPost->comments()->count() }}</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 text-end">
-                                        <div
-                                            class="icon icon-shape bg-gradient-success shadow-danger text-center rounded-circle">
-                                            <i class="ni ni-chat-round text-lg opacity-10" aria-hidden="true"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="mt-2">
-                    @include('components.categories')
-                </div>
             </div>
             <div class="col-lg-6 mb-lg-0 mb-4">
                 <livewire:create-post />
                 <br>
                 <div class="card">
                     <div class="card-header d-flex justify-content-center pb-0">
-                        <h4 class="text-bold text-2xl">{{ $catName->name }}</h4>
+                        <h4 class="text-bold uppercase text-2xl">{{ $catName->name }}</h4>
                     </div>
                     <div class="card-body">
                         {{-- @php
@@ -160,11 +85,7 @@
                 </div>
 
             </div>
-            <div class="col-lg-3 ">
-                <br>
-                @include('components.announcements')
-                <br>
-            </div>
+
         </div>
         {{-- END FEATURED POSTS || ANNOUCEMENTS --}}
         {{-- START POSTS LOOPINGS --}}

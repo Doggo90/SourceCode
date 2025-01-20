@@ -96,6 +96,7 @@ class PostController extends Controller
     }
     public function allTags($tag)
     {
+
         $latestAnn = Announcement::latest()->first();
         $announcements = Announcement::where('created_at', '<', $latestAnn->created_at)->orderBy('created_at', 'desc')->get();
         $categories = Category::all()->take(3);
@@ -119,7 +120,7 @@ class PostController extends Controller
         $secOrgs = $second->organizations()->get();
         $thirdOrgs = $third->organizations()->get();
         $topRep = User::orderByDesc('reputation')->skip(3)->take(7)->get();
-        return view('pages.alltags', compact('posts', 'allposts','mostUpvotes','mostComments','announcements','categories', 'topRep','latestAnn','allCat', 'topRep', 'first', 'second', 'third', 'firstOrgs', 'secOrgs', 'thirdOrgs'));
+        return view('pages.alltags', compact('posts', 'allposts','mostUpvotes','mostComments','announcements','categories', 'topRep','latestAnn','allCat', 'topRep', 'first', 'second', 'third', 'firstOrgs', 'secOrgs', 'thirdOrgs', 'tag'));
     }
 
     /**

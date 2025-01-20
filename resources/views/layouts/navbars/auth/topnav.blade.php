@@ -31,9 +31,9 @@
                     <li>
                         <form role="form" method="post" action="{{ route('logout') }}" id="logout-form">
                             @csrf
-                            <a href="{{ route('logout') }}" style="text-decoration: none; color:black; "
+                            <a href="{{ route('logout') }}" style="text-decoration: none; "
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                                class="nav-link text-black dropdown-item">
+                                class="dropdown-item">
                                 Log Out
                             </a>
                         </form>

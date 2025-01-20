@@ -52,10 +52,10 @@ class PostResource extends Resource
                         ->disabled()
                         ->hidden(fn (string $operation): bool => $operation === 'create'),
 
-                        Forms\Components\Placeholder::make('user_id')
-                            ->label('Author')
-                            ->content(fn (User $user): ?string => auth()->user()->name)
-                            ->hidden(fn (string $operation): bool => $operation === 'edit'),
+                        Forms\Components\Hidden::make('user_id')
+                        ->default(fn () => auth()->id())
+                        ->dehydrated()
+                        ->hidden(fn (string $operation) => $operation === 'edit'),
 
                         Forms\Components\Placeholder::make('user_id')
                             ->label('Author')
@@ -87,8 +87,10 @@ class PostResource extends Resource
                                 }),
                         ]),
                         Forms\Components\Section::make('Status')->schema([
-                            Forms\Components\Toggle::make('is_approved'),
-                            Forms\Components\Toggle::make('is_archived'),
+                            Forms\Components\Toggle::make('is_approved')
+                            ->label('Approve Post'),
+                            Forms\Components\Toggle::make('is_archived')
+                            ->label('Archive Post'),
                         ]),
                     ])
                     ->columnSpanFull(),
