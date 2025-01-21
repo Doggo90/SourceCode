@@ -59,7 +59,7 @@
 
                         </div>
                         <div class="row mb-2 ms-auto">
-                            <textarea maxlength="500" class="form-control mb-0 pb-0" rows="3" name="body" id="body" wire:model="body"
+                            <textarea maxlength="5000" class="form-control mb-0 pb-0" rows="3" name="body" id="body" wire:model="body"
                                 placeholder="Post Context" required=""></textarea>
                             @error('body')
                                 <p class="p text-red-500 text-xs mt-1">{{ $message }}</p>

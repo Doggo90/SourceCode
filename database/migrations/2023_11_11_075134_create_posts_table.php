@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
+            $table->text('title')->nullable();
             $table->string('logo')->nullable();
-            $table->string('body')->nullable();
+            $table->text('body')->nullable();
             $table->string('tags')->nullable();
             $table->boolean('is_archived')->default(false);
             $table->integer('upvote')->nullable()->default(0);
