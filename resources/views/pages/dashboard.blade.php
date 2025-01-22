@@ -58,7 +58,7 @@
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="numbers">
-                                            <p class="text-sm mb-0 text-uppercase font-weight-bold">HOTTEST POST</p>
+                                            <p class="text-sm mb-0 text-uppercase font-weight-bold">MOST POPULAR POST</p>
                                             <h5 class="font-weight-bolder">
                                                 {{ $hottestPost->title }}
                                             </h5>
@@ -95,9 +95,10 @@
             {{-- RIGHT SIDE COLUMN (ANNOUNCEMENTS AND WHATNOT) --}}
             <div class="col-lg-3">
                 @include('components.announcements')
+                {{-- -------------------------- RANKINGS CURRENT REPUTATION------------------------------ --}}
                 <div class="card mt-2 pb-4">
                     <div class="card-header">
-                        <h5 class="text-center text-bold text-xl">Rankings (Reputation)</h5>
+                        <h5 class="text-center text-bold text-xl">Reputation (Current)</h5>
                     </div>
                     <a href="/profile/{{ $first->id }}">
                         <div class="card-body d-flex justify-content-between pb-0"
@@ -208,6 +209,123 @@
                                 </div>
 
                                 <p class="text-bold">{{ $top->reputation }}</p>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+                {{-- -------------------------- RANKINGS ALL TIME REPUTATION------------------------------ --}}
+                <div class="card mt-2 pb-4">
+                    <div class="card-header">
+                        <h5 class="text-center text-bold text-xl">Reputation (All-Time)</h5>
+                    </div>
+                    <a href="/profile/{{ $firstTotal->id }}">
+                        <div class="card-body d-flex justify-content-between pb-0"
+                            style="padding-bottom: 0; padding-top: 0;">
+                            <div class="d-flex justify-content-center">
+                                <img src="/img/no-image.png"
+                                    {{-- {{ !empty($first->photo) ? url($first->photo) : url('/img/no-image.png') }}" --}}
+                                    alt="profile_image" class="rounded-circle img-fluid border-white pb-4" width="40"
+                                    height="40">
+                                <span>
+                                    <img src="/img/first.png" alt="profile_image"
+                                        class="rounded-circle img-fluid border-white pb-4 pt-2 me-2" width="40"
+                                        height="40">
+                                </span>
+                                <p class="text-bold ms-0 mb-0 pt-3">
+                                    {{ \Illuminate\Support\Str::limit(implode(' ', array_slice(explode(' ', $firstTotal->name), 0, 2)), 15, '') }}
+                                    <span>
+                                        @foreach ($firstOrgsTotal as $org)
+                                            ({{ $org->nickname }})
+                                        @endforeach
+                                    </span>
+
+                                </p>
+                            </div>
+                            <p class="text-bold">{{ $firstTotal->total_reputation }}</p>
+                        </div>
+                    </a>
+                    <a href="/profile/{{ $secondTotal->id }}">
+                        <div class="card-body d-flex justify-content-between pb-0"
+                            style="padding-bottom: 0; padding-top: 0;">
+                            <div class="d-flex justify-content-center">
+                                <img src="/img/no-image.png"
+                                {{-- {{ !empty($second->photo) ? url($second->photo) : url('/img/no-image.png') }}" --}}
+                                    alt="profile_image" class="rounded-circle img-fluid border-white pb-4" width="40"
+                                    height="40">
+                                <span>
+                                    <img src="/img/second.png" alt="profile_image"
+                                        class="rounded-circle img-fluid border-white pb-4 pt-2 me-2" width="30"
+                                        height="30">
+                                </span>
+                                <p class="text-bold ms-0 mb-0 pt-3">
+                                    {{ \Illuminate\Support\Str::limit(implode(' ', array_slice(explode(' ', $secondTotal->name), 0, 2)), 15, '') }}
+                                    <span>
+                                        @foreach ($secOrgsTotal as $org)
+                                            ({{ $org->nickname }})
+                                        @endforeach
+                                    </span>
+
+                                </p>
+                            </div>
+                            <p class="text-bold">{{ $secondTotal->total_reputation }}</p>
+                        </div>
+                    </a>
+
+                    <a href="/profile/{{ $thirdTotal->id }}">
+                        <div class="card-body d-flex justify-content-between pb-0"
+                            style="padding-bottom: 0; padding-top: 0;">
+                            <div class="d-flex justify-content-center">
+                                <img src="/img/no-image.png"
+                                {{-- {{ !empty($third->photo) ? url($third->photo) : url('/img/no-image.png') }}" --}}
+                                    alt="profile_image" class="rounded-circle img-fluid border-white pb-4" width="40"
+                                    height="40">
+                                <span>
+                                    <img src="/img/third.png" alt="profile_image"
+                                        class="rounded-circle img-fluid border-white pb-4 pt-2 me-2" width="30"
+                                        height="30">
+                                </span>
+                                <p class="text-bold ms-0 mb-0 pt-3">
+                                    {{ \Illuminate\Support\Str::limit(implode(' ', array_slice(explode(' ', $thirdTotal->name), 0, 2)), 15, '') }}
+                                    <span>
+                                        @foreach ($thirdOrgsTotal as $org)
+                                            ({{ $org->nickname }})
+                                        @endforeach
+                                    </span>
+
+
+                                </p>
+                            </div>
+                            <p class="text-bold">{{ $thirdTotal->total_reputation }}</p>
+                        </div>
+                    </a>
+                    @foreach ($topRepTotal as $top)
+                        <a href="/profile/{{ $top->id }}">
+                            <div class="card-body d-flex justify-content-between pb-0"
+                                style="padding-bottom: 0; padding-top: 0;">
+                                {{-- @php
+                                    dd($top->photo);
+                                @endphp --}}
+                                <div class="d-flex justify-content-center">
+                                    <img src="/img/no-image.png"
+                                        {{-- {{ --}}
+                                        {{-- !empty($top->photo) ? url($top->photo) : url('/img/no-image.png')}}" --}}
+                                        alt="profile_image"
+                                        class="rounded-circle img-fluid border-white pb-4"
+                                        width="40" height="40">
+                                    <p class="text-bold ms-3">
+                                        {{ \Illuminate\Support\Str::limit(implode(' ', array_slice(explode(' ', $top->name), 0, 2)), 15, '') }}
+                                        @php
+                                            $topOrg = $top->organizations()->get();
+                                        @endphp
+                                        <span>
+                                            @foreach ($topOrg as $org)
+                                                ({{ $org->nickname }})
+                                            @endforeach
+                                        </span>
+                                    </p>
+                                </div>
+
+                                <p class="text-bold">{{ $top->total_reputation }}</p>
                             </div>
                         </a>
                     @endforeach

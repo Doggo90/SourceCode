@@ -34,6 +34,7 @@ class PostController extends Controller
         $mostComments = Post::all()
         ->sortByDesc('comments_count')
         ->first();
+        // ------------------------ CURRENT REPUTATION------------------------
         $first = User::orderByDesc('reputation')->first();
         $second = User::orderByDesc('reputation')->skip(1)->take(1)->first();
         $third = User::orderByDesc('reputation')->skip(2)->take(1)->first();
@@ -42,8 +43,15 @@ class PostController extends Controller
         $thirdOrgs = $third->organizations()->get();
         $topRep = User::orderByDesc('reputation')->skip(3)->take(7)->get();
         // dd($topRep);
-
-        return view('pages.dashboard', compact('allposts','mostUpvotes','mostComments','announcements','categories', 'topRep', 'first', 'second', 'third','allCat', 'latestAnn', 'firstOrgs', 'secOrgs','thirdOrgs'));
+        // ------------------------ TOTAL REPUTATION------------------------
+        $firstTotal = User::orderByDesc('total_reputation')->first();
+        $secondTotal = User::orderByDesc('total_reputation')->skip(1)->take(1)->first();
+        $thirdTotal = User::orderByDesc('total_reputation')->skip(2)->take(1)->first();
+        $firstOrgsTotal = $first->organizations()->get();
+        $secOrgsTotal = $second->organizations()->get();
+        $thirdOrgsTotal = $third->organizations()->get();
+        $topRepTotal = User::orderByDesc('total_reputation')->skip(3)->take(7)->get();
+        return view('pages.dashboard', compact('allposts','mostUpvotes','mostComments','announcements','categories', 'topRep', 'first', 'second', 'third','allCat', 'latestAnn', 'firstOrgs', 'secOrgs','thirdOrgs', 'firstTotal', 'secondTotal', 'thirdTotal', 'firstOrgsTotal', 'secOrgsTotal', 'thirdOrgsTotal','topRepTotal', 'topRepTotal'));
     }
 
     public function AnnouncementShow(Announcement $announcement){
@@ -113,6 +121,7 @@ class PostController extends Controller
         ->where('is_approved', 1)
         ->where('is_archived', 0)
         ->paginate(10);
+        // -------------------------CURRENT REPUTATION ------------------------
         $first = User::orderByDesc('reputation')->first();
         $second = User::orderByDesc('reputation')->skip(1)->take(1)->first();
         $third = User::orderByDesc('reputation')->skip(2)->take(1)->first();
@@ -120,6 +129,8 @@ class PostController extends Controller
         $secOrgs = $second->organizations()->get();
         $thirdOrgs = $third->organizations()->get();
         $topRep = User::orderByDesc('reputation')->skip(3)->take(7)->get();
+
+
         return view('pages.alltags', compact('posts', 'allposts','mostUpvotes','mostComments','announcements','categories', 'topRep','latestAnn','allCat', 'topRep', 'first', 'second', 'third', 'firstOrgs', 'secOrgs', 'thirdOrgs', 'tag'));
     }
 

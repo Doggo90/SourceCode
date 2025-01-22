@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav style="margin: 0; padding:0;" class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl
+<nav style="margin: 0; padding:0;" class="navbar navbar-main navbar-expand-lg fixed top-0 left-0 w-full px-0 mx-4 shadow-none border-radius-xl
         {{ str_contains(Request::url(), 'virtual-reality') == true ? ' mt-3 mx-3 bg-primary' : '' }}"
     id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-0 px-3 d-flex justify-content-between">
@@ -13,7 +13,7 @@
         </div>
         {{-- <div class="container-fluid d-flex justify-content-between align-items-center mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar"> --}}
 
-        <div class="d-flex align-items-center me-5" >
+        <div class="mx-auto px-4 d-flex align-items-center me-5 pe-5" >
             <div class=" me-1 ms-2">
                 <livewire:notif-button />
             </div>

@@ -57,7 +57,7 @@
                             </div>
                             <div class="card-body">
                                 <p class="fs-5 mb-4">
-                                    {{$post->body}}
+                                    {!! nl2br(preg_replace('/(https?:\/\/[^\s]+)/', '<a href="$1" target="_blank">$1</a>', $post->body)) !!}
                                 </p>
                             </div>
                             <div class="card-footer p-3" style="max-height: 60px; ">
