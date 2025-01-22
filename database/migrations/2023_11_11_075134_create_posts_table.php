@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('body')->nullable();
             $table->string('tags')->nullable();
             $table->boolean('is_archived')->default(false);
+            $table->boolean('is_approved')->default(true);
             $table->integer('upvote')->nullable()->default(0);
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();

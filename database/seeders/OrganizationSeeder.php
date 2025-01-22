@@ -16,6 +16,10 @@ class OrganizationSeeder extends Seeder
         DB::table('organizations')->insert([
             // Admin
             [
+                'name' => 'None at the moment',
+                'nickname' => 'N/A',
+            ],
+            [
                 'name' => 'Bright and Young Technology Enthusiasts Society',
                 'nickname' => 'BYTES',
             ],

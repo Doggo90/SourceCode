@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Post;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Validate;
+use Blaspsoft\Blasp\Facades\Blasp;
 
 class CreatePost extends Component
 {
@@ -25,13 +26,20 @@ class CreatePost extends Component
             $this->errorMessage = 'Missing Inputs Found!';
             return;
         }
-
+        $blasp = Blasp::check($this->body);
+        // dd($blasp->hasProfanity());
+        if($blasp->hasProfanity()){
+            return redirect('/dashboard')->with('error', 'Profanity Detected!');
+        }
         $this->validate([
             'title' => 'required | min:2',
             'body' => 'required | min:2',
+            // 'body' => ['blasp_check'],
             'tags' => 'required | min:2',
             'selectedCategories' => 'required',
         ]);
+
+
         $post = Post::create([
             'title' => $this->title,
             'body' => $this->body,

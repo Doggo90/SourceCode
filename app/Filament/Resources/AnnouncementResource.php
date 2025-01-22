@@ -36,11 +36,19 @@ class AnnouncementResource extends Resource
                     ->disk('public')
                     ->directory('prospects/json'),
                     // ->image()
-                Forms\Components\RichEditor::make('body')
+                Forms\Components\TextInput::make('overview')
+                    ->label('Overview (Short Description)')
                     // ->rows(3)
                     ->required()
                     // ->autosize()
                     ->maxLength(5000),
+                Forms\Components\RichEditor::make('body')
+                    ->label('Context (Full Description)')
+                    // ->rows(3)
+                    ->required()
+                    // ->autosize()
+                    ->maxLength(5000),
+
 
             ]);
     }

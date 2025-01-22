@@ -7,6 +7,7 @@ use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Components\Tab;
 use App\Models\User;
+use App\Models\Post;
 
 class ListUsers extends ListRecords
 {
@@ -28,7 +29,12 @@ class ListUsers extends ListRecords
             ->modifyQueryUsing( function($query){
                 $query->where('is_suspended', 1);
             })->badge(User::query()->where('is_suspended', 1)->count()),
-
+            'Upvoted Users' => Tab::make()
+            ->modifyQueryUsing(function ($query) {
+                $query->whereHas('likes');
+            })
+            ->badge(User::query()->whereHas('likes')->count()),
+            
         ];
     }
 }

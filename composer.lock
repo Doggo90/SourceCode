@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ab5d97946d0b5d1f4587381ff824eb2",
+    "content-hash": "2ba601de1eec47881296667b32da46ad",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -221,6 +221,67 @@
                 }
             ],
             "time": "2024-02-07T16:09:20+00:00"
+        },
+        {
+            "name": "blaspsoft/blasp",
+            "version": "v1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Blaspsoft/blasp.git",
+                "reference": "ec96e3e249a71addccb107ae9b56d135f0796981"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Blaspsoft/blasp/zipball/ec96e3e249a71addccb107ae9b56d135f0796981",
+                "reference": "ec96e3e249a71addccb107ae9b56d135f0796981",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^8.0|^9.0|^10.0|^11.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.47",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Blasp": "Blaspsoft\\Blasp\\Facades\\Blasp"
+                    },
+                    "providers": [
+                        "Blaspsoft\\Blasp\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Blaspsoft\\Blasp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Deeming",
+                    "email": "michael.deeming90@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Blasp is a powerful and customisable profanity filter package for Laravel applications",
+            "homepage": "https://github.com/blaspsoft/blasp",
+            "keywords": [
+                "blasp",
+                "blaspsoft"
+            ],
+            "support": {
+                "issues": "https://github.com/Blaspsoft/blasp/issues",
+                "source": "https://github.com/Blaspsoft/blasp/tree/v1.2.2"
+            },
+            "time": "2024-11-27T03:16:41+00:00"
         },
         {
             "name": "brick/math",
@@ -10879,12 +10940,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.1"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

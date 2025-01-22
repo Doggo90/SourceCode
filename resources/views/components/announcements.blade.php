@@ -4,9 +4,12 @@
         <p class="h4 text-bold text-center mt-2">Announcements</p>
         <a href="/announcement/{{ $latestAnn->id }}">
             <div class="card-body pb-0 pt-2 bg-transparent ">
-                <h4 class="text-capitalize pb-0 mb-0">
-                    {{ $latestAnn->title }}
-                </h4>
+                <p class="text-uppercase fw-bold">
+                    {{ \Illuminate\Support\Str::limit(explode('å', $latestAnn->title)[0], $limit =40, $end = '...') }}
+                </p>
+                <p class="text-uppercase fw-bold">
+                    {{ \Illuminate\Support\Str::limit(explode('å', $latestAnn->overview)[0], $limit =80, $end = '...') }}
+                </p>
                 <p class="text-sm mb-0">
                     <i class="fa fa-clock text-success"></i>
                     <span class="font-weight-bold">{{ $latestAnn->created_at->diffForHumans() }}</span>
@@ -25,9 +28,11 @@
             <div class="card z-index-2 mb-2 mt-2 " style="max-height: 200px; overflow: hidden;">
                 <a href="/announcement/{{ $announcement->id }}">
                     <div class="card-body pb-0 pt-2 bg-transparent ">
-                        <h4 class="text-capitalize pb-0 mb-0">
-                            {{ $announcement->title }}
-                        </h4>
+                        <p class="text-uppercase fw-bold">
+                            {{ \Illuminate\Support\Str::limit(explode('å', $announcement->overview)[0], $limit =40, $end = '...') }}
+                        </p><p class="text-uppercase fw-bold">
+                            {{ \Illuminate\Support\Str::limit(explode('å', $announcement->overview)[0], $limit =80, $end = '...') }}
+                        </p>
                         <p class="text-sm mb-0">
                             <i class="fa fa-clock text-success"></i>
                             <span class="font-weight-bold">{{ $announcement->created_at->diffForHumans() }}</span>

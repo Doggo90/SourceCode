@@ -94,6 +94,10 @@ class User extends Authenticatable implements FilamentUser
     public function hasUpvoted(Post $post){
         return $this->likes()->where('post_id', $post->id)->exists();
     }
+    public function totalUpvotes()
+    {
+        return $this->likes()->count(5);
+    }
     public function organizations(): belongsToMany
     {
         return $this->belongsToMany(Organization::class);
@@ -106,10 +110,7 @@ class User extends Authenticatable implements FilamentUser
     {
         $this->attributes['password'] = bcrypt($value);
     }
-    public function totalUpvotes()
-    {
-        return $this->likes()->count(5);
-    }
+
     public function mentions()
     {
         return $this->belongsToMany(Reply::class, 'reply_user', 'user_id', 'reply_id')

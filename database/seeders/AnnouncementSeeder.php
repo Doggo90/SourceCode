@@ -17,6 +17,7 @@ class AnnouncementSeeder extends Seeder
             // Admin
             [
                 'title' => 'Nulla tempora aut quo atque mollitia repellat ipsum.',
+                'overview' => 'Et aut aut quis facere dolores exercitationem.',
                 'body' => 'Et aut aut quis facere dolores exercitationem. Sit dolorem velit culpa rerum. Inventore nemo quam qui corporis error. Dignissimos qui fugiat quia dolores.',
                 'user_id' => '1',
                 'created_at' => now(),

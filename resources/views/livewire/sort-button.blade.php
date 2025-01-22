@@ -46,7 +46,7 @@
                                             {{-- {{ !empty($post->author->photo) ? url($post->author->photo) : url('/img/no-image.png') }}" --}}
                                             alt="profile">
                                         <p class="text-capitalize text-bold ps-2">{{ $post->author->name }}</p>
-                                    </div>
+                                </div>
                                 </div>
                                 <div class="card-body d-flex justify-content-between mx-4  py-2" style="max-height: 100px; overflow: hidden; margin-bottom: 0; margin-left: 0; margin-right: 0;">
                                         <p class="text-uppercase fw-bold">

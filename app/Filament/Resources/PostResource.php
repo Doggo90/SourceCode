@@ -31,8 +31,8 @@ class PostResource extends Resource
     protected static ?int $navigationSort = 1;
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::where('is_approved', 0)->count();
-        // + Post::query()->where('is_archived', 1)->count()
+        return static::getModel()::where('is_archived', 1)->count();
+        // + Post::query()->where('is_archived', 1)->count();
     }
 
 
@@ -87,8 +87,8 @@ class PostResource extends Resource
                                 }),
                         ]),
                         Forms\Components\Section::make('Status')->schema([
-                            Forms\Components\Toggle::make('is_approved')
-                            ->label('Approve Post'),
+                            // Forms\Components\Toggle::make('is_approved')
+                            // ->label('Approve Post'),
                             Forms\Components\Toggle::make('is_archived')
                             ->label('Archive Post'),
                         ]),
@@ -134,65 +134,65 @@ class PostResource extends Resource
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
-                    Tables\Actions\Action::make('Approve Post')
-                        ->label('Approve Post/Remove Approval')
-                        ->icon('heroicon-o-check')
-                        ->color('success')
-                        ->action(function (Post $post) {
-                            if ($post->is_approved == false) {
-                                $post->is_approved = true;
-                                $post->save();
-                                Notification::make()
-                                    ->title('Approved Successfully!')
-                                    ->body('Selected post have been approved.')
-                                    ->icon('heroicon-s-check')
-                                    ->color('success')
-                                    ->send();
-                            } else {
-                                $post->is_approved = false;
-                                $post->save();
-                                Notification::make()
-                                    ->title('Approval Removed Successfully!')
-                                    ->body('Selected post approval has been removed.')
-                                    ->icon('heroicon-s-check')
-                                    ->color('success')
-                                    ->send();
-                            }
-                        }),
+                    // Tables\Actions\Action::make('Approve Post')
+                    //     ->label('Approve Post/Remove Approval')
+                    //     ->icon('heroicon-o-check')
+                    //     ->color('success')
+                    //     ->action(function (Post $post) {
+                    //         if ($post->is_approved == false) {
+                    //             $post->is_approved = true;
+                    //             $post->save();
+                    //             Notification::make()
+                    //                 ->title('Approved Successfully!')
+                    //                 ->body('Selected post have been approved.')
+                    //                 ->icon('heroicon-s-check')
+                    //                 ->color('success')
+                    //                 ->send();
+                    //         } else {
+                    //             $post->is_approved = false;
+                    //             $post->save();
+                    //             Notification::make()
+                    //                 ->title('Approval Removed Successfully!')
+                    //                 ->body('Selected post approval has been removed.')
+                    //                 ->icon('heroicon-s-check')
+                    //                 ->color('success')
+                    //                 ->send();
+                    //         }
+                    //     }),
                 ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\BulkAction::make('Approve Posts')
-                        ->label('Bulk Approve/Disapprove')
-                        ->icon('heroicon-o-check')
-                        ->color('success')
-                        ->deselectRecordsAfterCompletion()
-                        ->action(function (Collection $records) {
-                            $records->each(function ($record){
-                                $record->is_approved = !$record->is_approved;
-                                $record->save();
-                                if ($record->is_approved) {
-                                    Notification::make()
-                                        ->title(__('Approved Successfully!'))
-                                        ->body(__('Selected posts have been approved.'))
-                                        ->icon('heroicon-s-check')
-                                        ->color('success')
-                                        ->send();
-                                } else {
-                                    Notification::make()
-                                        ->title(__('Approval Removed Successfully!'))
-                                        ->body(__('Selected posts approval has been removed.'))
-                                        ->icon('heroicon-s-check')
-                                        ->color('success')
-                                        ->send();
-                                }
-                            });
+                    // Tables\Actions\BulkAction::make('Approve Posts')
+                    //     ->label('Bulk Approve/Disapprove')
+                    //     ->icon('heroicon-o-check')
+                    //     ->color('success')
+                    //     ->deselectRecordsAfterCompletion()
+                    //     ->action(function (Collection $records) {
+                    //         $records->each(function ($record){
+                    //             $record->is_approved = !$record->is_approved;
+                    //             $record->save();
+                    //             if ($record->is_approved) {
+                    //                 Notification::make()
+                    //                     ->title(__('Approved Successfully!'))
+                    //                     ->body(__('Selected posts have been approved.'))
+                    //                     ->icon('heroicon-s-check')
+                    //                     ->color('success')
+                    //                     ->send();
+                    //             } else {
+                    //                 Notification::make()
+                    //                     ->title(__('Approval Removed Successfully!'))
+                    //                     ->body(__('Selected posts approval has been removed.'))
+                    //                     ->icon('heroicon-s-check')
+                    //                     ->color('success')
+                    //                     ->send();
+                    //             }
+                    //         });
 
 
 
-                        }),
+                    //     }),
                 ]),
             ]);
     }
