@@ -1,7 +1,7 @@
 <div class="mb-2" >
 
     <div class="card" x-data="{ open: false, hide: false }">
-            <div class="card-body pb-0 p-3 text-start">
+            <div class="card-body pb-0 p-3 text-start ms-3">
                 <ul class=" text-sm ps-0 mb-3" style="list-style-type: none;">
             <li><h4 class="text-center text-2xl mt-2"><strong>Categories</strong></h4></li>
                     @foreach ($categories as $category)

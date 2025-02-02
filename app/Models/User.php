@@ -46,6 +46,13 @@ class User extends Authenticatable implements FilamentUser
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    protected static function booted()
+    {
+        static::saving(function ($user) {
+            $user->is_suspended = $user->suspended_until && now()->lessThan($user->suspended_until);
+        });
+    }
     public function sessionCheck(){
         if (Auth::check()) {
             return optional(auth()->user())->status == 'active';

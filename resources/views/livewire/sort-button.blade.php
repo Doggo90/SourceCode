@@ -40,13 +40,61 @@
                     <a href="/post/{{ $post->id }}">
                             <div class="card z-index-2 mb-2" style="max-height: 200px; overflow: hidden;">
                                 <div class="card-header pb-0 pt-3 bg-transparent d-flex justify-content-start mx-3">
-                                    <div class=" d-flex justify-content-between">
-                                        <img class="img-fluid rounded-circle" style="width: 2rem; height: 2rem;"
-                                            src="/img/no-image.png"
-                                            {{-- {{ !empty($post->author->photo) ? url($post->author->photo) : url('/img/no-image.png') }}" --}}
-                                            alt="profile">
-                                        <p class="text-capitalize text-bold ps-2">{{ $post->author->name }}</p>
-                                </div>
+                                    @php
+                                    $badge = '';
+                                    switch (true) {
+                                        case $post->author->reputation >= 500:
+                                            $badge = 'Expert';
+                                            $badgeColor = '#FFD700'; // Gold
+                                            $textColor = 'black';
+                                            break;
+                                        case $post->author->reputation >= 200:
+                                            $badge = 'Active Contributor';
+                                            $badgeColor = '#28a745'; // Green
+                                            $textColor = 'white';
+                                            break;
+                                        case $post->author->reputation >= 100:
+                                            $badge = 'Researcher';
+                                            $badgeColor = '#00008B'; // Dark Blue
+                                            $textColor = 'white';
+                                            break;
+                                        case $post->author->reputation >= 50:
+                                            $badge = 'Mentor';
+                                            $badgeColor = '#800080'; // Purple
+                                            $textColor = 'white';
+                                            break;
+                                        case $post->author->reputation >= 10:
+                                            $badge = 'Collaborator';
+                                            $badgeColor = '#FF8C00'; // Orange
+                                            $textColor = 'white';
+                                            break;
+                                        case $post->author->reputation >= 0:
+                                            $badge = 'Newcomer';
+                                            $badgeColor = '#87CEEB'; // Light Blue
+                                            $textColor = 'white';
+                                            break;
+                                        default:
+                                            $badge = '';
+                                    }
+                                @endphp
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <!-- Profile Image with Badge -->
+                                        <div style="position: relative; display: inline-block;">
+                                            <img class="img-fluid" style="width: 2rem; height: 2rem; border-radius: 50%;"
+                                                src=" {{ !empty($post->author->photo) ? url($post->author->photo) : url('/img/no-image.png') }}"
+                                                alt="profile">
+
+                                            <!-- Badge Circle -->
+                                            @if ($badge)
+                                                <span style="position: absolute; bottom: -2px; right: -2px; width: 12px; height: 12px; background-color: {{ $badgeColor }}; color: {{ $textColor }}; border-radius: 50%; border: 1px solid white; display: flex; align-items: center; justify-content: center; font-size: 0.5rem; font-weight: bold;">
+                                                    {{ substr($badge, 0, 1) }} <!-- Display first letter of the badge -->
+                                                </span>
+                                            @endif
+                                        </div>
+
+                                        <!-- User Name -->
+                                        <p class="text-capitalize text-bold ps-2 mb-0">{{ $post->author->name }}</p>
+                                    </div>
                                 </div>
                                 <div class="card-body d-flex justify-content-between mx-4  py-2" style="max-height: 100px; overflow: hidden; margin-bottom: 0; margin-left: 0; margin-right: 0;">
                                         <p class="text-uppercase fw-bold">

@@ -7,8 +7,6 @@
 
         <div class="row">
             <div class="col-lg-3">
-
-
                 @php
                     use App\Models\Post;
                     $mostLikedPost = Post::withCount('likes')
@@ -23,7 +21,7 @@
                     // dd($mostLikedPost);
                 @endphp
                 <div class="mb-2">
-                    <a href="/post/{{ $mostLikedPost->id ?? ''}}">
+                    <a href="/post/{{ $mostLikedPost->id ?? '' }}">
                         <div class="card">
                             <div class="card-body p-3">
                                 <div class="row">
@@ -81,6 +79,7 @@
                     </a>
                 </div>
                 @include('components.categories')
+                @include('components.badge_legend')
             </div>
             {{-- END FEATURED POSTS || ANNOUCEMENTS --}}
             <div class="col-lg-6 mb-lg-0 mb-0">
@@ -103,24 +102,73 @@
                     <a href="/profile/{{ $first->id }}">
                         <div class="card-body d-flex justify-content-between pb-0"
                             style="padding-bottom: 0; padding-top: 0;">
-                            <div class="d-flex justify-content-center">
-                                <img src="/img/no-image.png"
-                                    {{-- {{ !empty($first->photo) ? url($first->photo) : url('/img/no-image.png') }}" --}}
-                                    alt="profile_image" class="rounded-circle img-fluid border-white pb-4" width="40"
-                                    height="40">
-                                <span>
-                                    <img src="/img/first.png" alt="profile_image"
-                                        class="rounded-circle img-fluid border-white pb-4 pt-2 me-2" width="40"
-                                        height="40">
+                            <div class="d-flex justify-content-center align-items-center">
+                                @php
+                                    $badge = '';
+                                    switch (true) {
+                                        case $first->reputation >= 500:
+                                            $badge = 'Expert';
+                                            $badgeColor = '#FFD700'; // Gold
+                                            $textColor = 'black';
+                                            break;
+                                        case $first->reputation >= 200:
+                                            $badge = 'Active Contributor';
+                                            $badgeColor = '#28a745'; // Green
+                                            $textColor = 'white';
+                                            break;
+                                        case $first->reputation >= 100:
+                                            $badge = 'Researcher';
+                                            $badgeColor = '#00008B'; // Dark Blue
+                                            $textColor = 'white';
+                                            break;
+                                        case $first->reputation >= 50:
+                                            $badge = 'Mentor';
+                                            $badgeColor = '#800080'; // Purple
+                                            $textColor = 'white';
+                                            break;
+                                        case $first->reputation >= 10:
+                                            $badge = 'Collaborator';
+                                            $badgeColor = '#FF8C00'; // Orange
+                                            $textColor = 'white';
+                                            break;
+                                        case $first->reputation >= 0:
+                                            $badge = 'Newcomer';
+                                            $badgeColor = '#87CEEB'; // Light Blue
+                                            $textColor = 'white';
+                                            break;
+                                        default:
+                                            $badge = '';
+                                    }
+                                @endphp
+                                <!-- Profile Image with Badge -->
+                                <div style="position: relative; display: inline-block;">
+                                    <img src="{{ !empty($first->photo) ? url($first->photo) : url('/img/no-image.png') }}"
+                                        alt="profile_image"
+                                        style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white;">
+
+                                    <!-- Badge Circle -->
+                                    @if ($badge)
+                                        <span
+                                            style="position: absolute; bottom: 0; right: 0; width: 16px; height: 16px; background-color: {{ $badgeColor }}; color: {{ $textColor }}; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: bold;">
+                                            {{ substr($badge, 0, 1) }} <!-- Display first letter of the badge -->
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <!-- Medal Image -->
+                                <span style="margin-left: 10px;">
+                                    <img src="/img/first.png" alt="medal"
+                                        style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white;">
                                 </span>
-                                <p class="text-bold ms-0 mb-0 pt-3">
+
+                                <!-- User Name and Organizations -->
+                                <p class="text-bold ms-0 mb-0" style="margin-left: 10px;">
                                     {{ \Illuminate\Support\Str::limit(implode(' ', array_slice(explode(' ', $first->name), 0, 2)), 15, '') }}
                                     <span>
                                         @foreach ($firstOrgs as $org)
                                             ({{ $org->nickname }})
                                         @endforeach
                                     </span>
-
                                 </p>
                             </div>
                             <p class="text-bold">{{ $first->reputation }}</p>
@@ -129,24 +177,74 @@
                     <a href="/profile/{{ $second->id }}">
                         <div class="card-body d-flex justify-content-between pb-0"
                             style="padding-bottom: 0; padding-top: 0;">
-                            <div class="d-flex justify-content-center">
-                                <img src="/img/no-image.png"
-                                {{-- {{ !empty($second->photo) ? url($second->photo) : url('/img/no-image.png') }}" --}}
-                                    alt="profile_image" class="rounded-circle img-fluid border-white pb-4" width="40"
-                                    height="40">
-                                <span>
-                                    <img src="/img/second.png" alt="profile_image"
-                                        class="rounded-circle img-fluid border-white pb-4 pt-2 me-2" width="30"
-                                        height="30">
+
+                            <div class="d-flex justify-content-center align-items-center">
+                                @php
+                                    $badge = '';
+                                    switch (true) {
+                                        case $second->reputation >= 500:
+                                            $badge = 'Expert';
+                                            $badgeColor = '#FFD700'; // Gold
+                                            $textColor = 'black';
+                                            break;
+                                        case $second->reputation >= 200:
+                                            $badge = 'Active Contributor';
+                                            $badgeColor = '#28a745'; // Green
+                                            $textColor = 'white';
+                                            break;
+                                        case $second->reputation >= 100:
+                                            $badge = 'Researcher';
+                                            $badgeColor = '#00008B'; // Dark Blue
+                                            $textColor = 'white';
+                                            break;
+                                        case $second->reputation >= 50:
+                                            $badge = 'Mentor';
+                                            $badgeColor = '#800080'; // Purple
+                                            $textColor = 'white';
+                                            break;
+                                        case $second->reputation >= 10:
+                                            $badge = 'Collaborator';
+                                            $badgeColor = '#FF8C00'; // Orange
+                                            $textColor = 'white';
+                                            break;
+                                        case $second->reputation >= 0:
+                                            $badge = 'Newcomer';
+                                            $badgeColor = '#87CEEB'; // Light Blue
+                                            $textColor = 'white';
+                                            break;
+                                        default:
+                                            $badge = '';
+                                    }
+                                @endphp
+                                <!-- Profile Image with Badge -->
+                                <div style="position: relative; display: inline-block;">
+                                    <img src="{{ !empty($second->photo) ? url($second->photo) : url('/img/no-image.png') }}"
+                                        alt="profile_image"
+                                        style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white;">
+
+                                    <!-- Badge Circle -->
+                                    @if ($badge)
+                                        <span
+                                            style="position: absolute; bottom: 0; right: 0; width: 16px; height: 16px; background-color: {{ $badgeColor }}; color: {{ $textColor }}; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: bold;">
+                                            {{ substr($badge, 0, 1) }} <!-- Display second letter of the badge -->
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <!-- Medal Image -->
+                                <span style="margin-left: 10px;">
+                                    <img src="/img/second.png" alt="medal"
+                                        style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white;">
                                 </span>
-                                <p class="text-bold ms-0 mb-0 pt-3">
+
+                                <!-- User Name and Organizations -->
+                                <p class="text-bold ms-0 mb-0" style="margin-left: 10px;">
                                     {{ \Illuminate\Support\Str::limit(implode(' ', array_slice(explode(' ', $second->name), 0, 2)), 15, '') }}
                                     <span>
                                         @foreach ($secOrgs as $org)
                                             ({{ $org->nickname }})
                                         @endforeach
                                     </span>
-
                                 </p>
                             </div>
                             <p class="text-bold">{{ $second->reputation }}</p>
@@ -156,51 +254,142 @@
                     <a href="/profile/{{ $third->id }}">
                         <div class="card-body d-flex justify-content-between pb-0"
                             style="padding-bottom: 0; padding-top: 0;">
-                            <div class="d-flex justify-content-center">
-                                <img src="/img/no-image.png"
-                                {{-- {{ !empty($third->photo) ? url($third->photo) : url('/img/no-image.png') }}" --}}
-                                    alt="profile_image" class="rounded-circle img-fluid border-white pb-4" width="40"
-                                    height="40">
-                                <span>
-                                    <img src="/img/third.png" alt="profile_image"
-                                        class="rounded-circle img-fluid border-white pb-4 pt-2 me-2" width="30"
-                                        height="30">
+                            <div class="d-flex justify-content-center align-items-center">
+                                @php
+                                    $badge = '';
+                                    switch (true) {
+                                        case $third->reputation >= 500:
+                                            $badge = 'Expert';
+                                            $badgeColor = '#FFD700'; // Gold
+                                            $textColor = 'black';
+                                            break;
+                                        case $third->reputation >= 200:
+                                            $badge = 'Active Contributor';
+                                            $badgeColor = '#28a745'; // Green
+                                            $textColor = 'white';
+                                            break;
+                                        case $third->reputation >= 100:
+                                            $badge = 'Researcher';
+                                            $badgeColor = '#00008B'; // Dark Blue
+                                            $textColor = 'white';
+                                            break;
+                                        case $third->reputation >= 50:
+                                            $badge = 'Mentor';
+                                            $badgeColor = '#800080'; // Purple
+                                            $textColor = 'white';
+                                            break;
+                                        case $third->reputation >= 10:
+                                            $badge = 'Collaborator';
+                                            $badgeColor = '#FF8C00'; // Orange
+                                            $textColor = 'white';
+                                            break;
+                                        case $third->reputation >= 0:
+                                            $badge = 'Newcomer';
+                                            $badgeColor = '#87CEEB'; // Light Blue
+                                            $textColor = 'white';
+                                            break;
+                                        default:
+                                            $badge = '';
+                                    }
+                                @endphp
+                                <!-- Profile Image with Badge -->
+                                <div style="position: relative; display: inline-block;">
+                                    <img src="{{ !empty($third->photo) ? url($third->photo) : url('/img/no-image.png') }}"
+                                        alt="profile_image"
+                                        style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white;">
+
+                                    <!-- Badge Circle -->
+                                    @if ($badge)
+                                        <span
+                                            style="position: absolute; bottom: 0; right: 0; width: 16px; height: 16px; background-color: {{ $badgeColor }}; color: {{ $textColor }}; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: bold;">
+                                            {{ substr($badge, 0, 1) }} <!-- Display third letter of the badge -->
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <!-- Medal Image -->
+                                <span style="margin-left: 10px;">
+                                    <img src="/img/third.png" alt="medal"
+                                        style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white;">
                                 </span>
-                                <p class="text-bold ms-0 mb-0 pt-3">
+
+                                <!-- User Name and Organizations -->
+                                <p class="text-bold ms-0 mb-0" style="margin-left: 10px;">
                                     {{ \Illuminate\Support\Str::limit(implode(' ', array_slice(explode(' ', $third->name), 0, 2)), 15, '') }}
                                     <span>
                                         @foreach ($thirdOrgs as $org)
                                             ({{ $org->nickname }})
                                         @endforeach
                                     </span>
-
-
                                 </p>
                             </div>
                             <p class="text-bold">{{ $third->reputation }}</p>
                         </div>
                     </a>
                     @foreach ($topRep as $top)
+                        @php
+                            $badge = '';
+                            switch (true) {
+                                case $top->reputation >= 500:
+                                    $badge = 'Expert';
+                                    $badgeColor = '#FFD700'; // Gold
+                                    $textColor = 'black';
+                                    break;
+                                case $top->reputation >= 200:
+                                    $badge = 'Active Contributor';
+                                    $badgeColor = '#28a745'; // Green
+                                    $textColor = 'white';
+                                    break;
+                                case $top->reputation >= 100:
+                                    $badge = 'Researcher';
+                                    $badgeColor = '#00008B'; // Dark Blue
+                                    $textColor = 'white';
+                                    break;
+                                case $top->reputation >= 50:
+                                    $badge = 'Mentor';
+                                    $badgeColor = '#800080'; // Purple
+                                    $textColor = 'white';
+                                    break;
+                                case $top->reputation >= 10:
+                                    $badge = 'Collaborator';
+                                    $badgeColor = '#FF8C00'; // Orange
+                                    $textColor = 'white';
+                                    break;
+                                case $top->reputation >= 0:
+                                    $badge = 'Newcomer';
+                                    $badgeColor = '#87CEEB'; // Light Blue
+                                    $textColor = 'white';
+                                    break;
+                                default:
+                                    $badge = '';
+                            }
+                        @endphp
                         <a href="/profile/{{ $top->id }}">
                             <div class="card-body d-flex justify-content-between pb-0"
                                 style="padding-bottom: 0; padding-top: 0;">
-                                {{-- @php
-                                    dd($top->photo);
-                                @endphp --}}
-                                <div class="d-flex justify-content-center">
-                                    <img src="/img/no-image.png"
-                                        {{-- {{ --}}
-                                        {{-- !empty($top->photo) ? url($top->photo) : url('/img/no-image.png')}}" --}}
-                                        alt="profile_image"
-                                        {{-- onerror="this.src='/img/no-image.png'"  --}}
-                                        class="rounded-circle img-fluid border-white pb-4"
-                                        width="40" height="40">
-                                    <p class="text-bold ms-3">
+
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <!-- Profile Image with Badge -->
+                                    <div style="position: relative; display: inline-block;">
+                                        <img src="{{ !empty($top->photo) ? url($top->photo) : url('/img/no-image.png') }}"
+                                            alt="profile_image"
+                                            style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white;">
+
+                                        <!-- Badge Circle -->
+                                        @if ($badge)
+                                            <span
+                                                style="position: absolute; bottom: 0; right: 0; width: 16px; height: 16px; background-color: {{ $badgeColor }}; color: {{ $textColor }}; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: bold;">
+                                                {{ substr($badge, 0, 1) }} <!-- Display top letter of the badge -->
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <!-- User Name and Organizations -->
+                                    <p class="text-bold ms-0 mb-0" style="margin-left: 10px;">
                                         {{ \Illuminate\Support\Str::limit(implode(' ', array_slice(explode(' ', $top->name), 0, 2)), 15, '') }}
-                                        @php
-                                            $topOrg = $top->organizations()->get();
-                                        @endphp
                                         <span>
+                                            @php
+                                                $topOrg = $top->organizations()->get();
+                                            @endphp
                                             @foreach ($topOrg as $org)
                                                 ({{ $org->nickname }})
                                             @endforeach
@@ -221,24 +410,72 @@
                     <a href="/profile/{{ $firstTotal->id }}">
                         <div class="card-body d-flex justify-content-between pb-0"
                             style="padding-bottom: 0; padding-top: 0;">
-                            <div class="d-flex justify-content-center">
-                                <img src="/img/no-image.png"
-                                    {{-- {{ !empty($first->photo) ? url($first->photo) : url('/img/no-image.png') }}" --}}
-                                    alt="profile_image" class="rounded-circle img-fluid border-white pb-4" width="40"
-                                    height="40">
-                                <span>
-                                    <img src="/img/first.png" alt="profile_image"
-                                        class="rounded-circle img-fluid border-white pb-4 pt-2 me-2" width="40"
-                                        height="40">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <!-- Profile Image with Badge -->
+                                <div style="position: relative; display: inline-block;">
+                                    <img src="{{ !empty($firstTotal->photo) ? url($firstTotal->photo) : url('/img/no-image.png') }}"
+                                        alt="profile_image"
+                                        style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white;">
+                                    @php
+                                        $badge = '';
+                                        switch (true) {
+                                            case $firstTotal->total_reputation >= 500:
+                                                $badge = 'Expert';
+                                                $badgeColor = '#FFD700'; // Gold
+                                                $textColor = 'black';
+                                                break;
+                                            case $firstTotal->total_reputation >= 200:
+                                                $badge = 'Active Contributor';
+                                                $badgeColor = '#28a745'; // Green
+                                                $textColor = 'white';
+                                                break;
+                                            case $firstTotal->total_reputation >= 100:
+                                                $badge = 'Researcher';
+                                                $badgeColor = '#00008B'; // Dark Blue
+                                                $textColor = 'white';
+                                                break;
+                                            case $firstTotal->total_reputation >= 50:
+                                                $badge = 'Mentor';
+                                                $badgeColor = '#800080'; // Purple
+                                                $textColor = 'white';
+                                                break;
+                                            case $firstTotal->total_reputation >= 10:
+                                                $badge = 'Collaborator';
+                                                $badgeColor = '#FF8C00'; // Orange
+                                                $textColor = 'white';
+                                                break;
+                                            case $firstTotal->total_reputation >= 0:
+                                                $badge = 'Newcomer';
+                                                $badgeColor = '#87CEEB'; // Light Blue
+                                                $textColor = 'white';
+                                                break;
+                                            default:
+                                                $badge = '';
+                                        }
+                                    @endphp
+                                    <!-- Badge Circle -->
+                                    @if ($badge)
+                                        <span
+                                            style="position: absolute; bottom: 0; right: 0; width: 16px; height: 16px; background-color: {{ $badgeColor }}; color: {{ $textColor }}; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: bold;">
+                                            {{ substr($badge, 0, 1) }} <!-- Display firstTotal letter of the badge -->
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <!-- Medal Image -->
+                                <span style="margin-left: 10px;">
+                                    <img src="/img/first.png" alt="medal"
+                                        style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white;">
                                 </span>
-                                <p class="text-bold ms-0 mb-0 pt-3">
+
+                                <!-- User Name and Organizations -->
+                                <p class="text-bold ms-0 mb-0" style="margin-left: 10px;">
                                     {{ \Illuminate\Support\Str::limit(implode(' ', array_slice(explode(' ', $firstTotal->name), 0, 2)), 15, '') }}
                                     <span>
                                         @foreach ($firstOrgsTotal as $org)
                                             ({{ $org->nickname }})
                                         @endforeach
                                     </span>
-
                                 </p>
                             </div>
                             <p class="text-bold">{{ $firstTotal->total_reputation }}</p>
@@ -247,24 +484,73 @@
                     <a href="/profile/{{ $secondTotal->id }}">
                         <div class="card-body d-flex justify-content-between pb-0"
                             style="padding-bottom: 0; padding-top: 0;">
-                            <div class="d-flex justify-content-center">
-                                <img src="/img/no-image.png"
-                                {{-- {{ !empty($second->photo) ? url($second->photo) : url('/img/no-image.png') }}" --}}
-                                    alt="profile_image" class="rounded-circle img-fluid border-white pb-4" width="40"
-                                    height="40">
-                                <span>
-                                    <img src="/img/second.png" alt="profile_image"
-                                        class="rounded-circle img-fluid border-white pb-4 pt-2 me-2" width="30"
-                                        height="30">
+                            @php
+                                $badge = '';
+                                switch (true) {
+                                    case $secondTotal->total_reputation >= 500:
+                                        $badge = 'Expert';
+                                        $badgeColor = '#FFD700'; // Gold
+                                        $textColor = 'black';
+                                        break;
+                                    case $secondTotal->total_reputation >= 200:
+                                        $badge = 'Active Contributor';
+                                        $badgeColor = '#28a745'; // Green
+                                        $textColor = 'white';
+                                        break;
+                                    case $secondTotal->total_reputation >= 100:
+                                        $badge = 'Researcher';
+                                        $badgeColor = '#00008B'; // Dark Blue
+                                        $textColor = 'white';
+                                        break;
+                                    case $secondTotal->total_reputation >= 50:
+                                        $badge = 'Mentor';
+                                        $badgeColor = '#800080'; // Purple
+                                        $textColor = 'white';
+                                        break;
+                                    case $secondTotal->total_reputation >= 10:
+                                        $badge = 'Collaborator';
+                                        $badgeColor = '#FF8C00'; // Orange
+                                        $textColor = 'white';
+                                        break;
+                                    case $secondTotal->total_reputation >= 0:
+                                        $badge = 'Newcomer';
+                                        $badgeColor = '#87CEEB'; // Light Blue
+                                        $textColor = 'white';
+                                        break;
+                                    default:
+                                        $badge = '';
+                                }
+                            @endphp
+                            <div class="d-flex justify-content-center align-items-center">
+                                <!-- Profile Image with Badge -->
+                                <div style="position: relative; display: inline-block;">
+                                    <img src="{{ !empty($secondTotal->photo) ? url($secondTotal->photo) : url('/img/no-image.png') }}"
+                                        alt="profile_image"
+                                        style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white;">
+
+                                    <!-- Badge Circle -->
+                                    @if ($badge)
+                                        <span
+                                            style="position: absolute; bottom: 0; right: 0; width: 16px; height: 16px; background-color: {{ $badgeColor }}; color: {{ $textColor }}; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: bold;">
+                                            {{ substr($badge, 0, 1) }} <!-- Display secondTotal letter of the badge -->
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <!-- Medal Image -->
+                                <span style="margin-left: 10px;">
+                                    <img src="/img/second.png" alt="medal"
+                                        style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white;">
                                 </span>
-                                <p class="text-bold ms-0 mb-0 pt-3">
+
+                                <!-- User Name and Organizations -->
+                                <p class="text-bold ms-0 mb-0" style="margin-left: 10px;">
                                     {{ \Illuminate\Support\Str::limit(implode(' ', array_slice(explode(' ', $secondTotal->name), 0, 2)), 15, '') }}
                                     <span>
                                         @foreach ($secOrgsTotal as $org)
                                             ({{ $org->nickname }})
                                         @endforeach
                                     </span>
-
                                 </p>
                             </div>
                             <p class="text-bold">{{ $secondTotal->total_reputation }}</p>
@@ -274,50 +560,143 @@
                     <a href="/profile/{{ $thirdTotal->id }}">
                         <div class="card-body d-flex justify-content-between pb-0"
                             style="padding-bottom: 0; padding-top: 0;">
-                            <div class="d-flex justify-content-center">
-                                <img src="/img/no-image.png"
-                                {{-- {{ !empty($third->photo) ? url($third->photo) : url('/img/no-image.png') }}" --}}
-                                    alt="profile_image" class="rounded-circle img-fluid border-white pb-4" width="40"
-                                    height="40">
-                                <span>
-                                    <img src="/img/third.png" alt="profile_image"
-                                        class="rounded-circle img-fluid border-white pb-4 pt-2 me-2" width="30"
-                                        height="30">
+                            @php
+                                $badge = '';
+                                switch (true) {
+                                    case $thirdTotal->total_reputation >= 500:
+                                        $badge = 'Expert';
+                                        $badgeColor = '#FFD700'; // Gold
+                                        $textColor = 'black';
+                                        break;
+                                    case $thirdTotal->total_reputation >= 200:
+                                        $badge = 'Active Contributor';
+                                        $badgeColor = '#28a745'; // Green
+                                        $textColor = 'white';
+                                        break;
+                                    case $thirdTotal->total_reputation >= 100:
+                                        $badge = 'Researcher';
+                                        $badgeColor = '#00008B'; // Dark Blue
+                                        $textColor = 'white';
+                                        break;
+                                    case $thirdTotal->total_reputation >= 50:
+                                        $badge = 'Mentor';
+                                        $badgeColor = '#800080'; // Purple
+                                        $textColor = 'white';
+                                        break;
+                                    case $thirdTotal->total_reputation >= 10:
+                                        $badge = 'Collaborator';
+                                        $badgeColor = '#FF8C00'; // Orange
+                                        $textColor = 'white';
+                                        break;
+                                    case $thirdTotal->total_reputation >= 0:
+                                        $badge = 'Newcomer';
+                                        $badgeColor = '#87CEEB'; // Light Blue
+                                        $textColor = 'white';
+                                        break;
+                                    default:
+                                        $badge = '';
+                                }
+                            @endphp
+                            <div class="d-flex justify-content-center align-items-center">
+                                <!-- Profile Image with Badge -->
+                                <div style="position: relative; display: inline-block;">
+                                    <img src="{{ !empty($thirdTotal->photo) ? url($thirdTotal->photo) : url('/img/no-image.png') }}"
+                                        alt="profile_image"
+                                        style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white;">
+
+                                    <!-- Badge Circle -->
+                                    @if ($badge)
+                                        <span
+                                            style="position: absolute; bottom: 0; right: 0; width: 16px; height: 16px; background-color: {{ $badgeColor }}; color: {{ $textColor }}; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: bold;">
+                                            {{ substr($badge, 0, 1) }} <!-- Display thirdTotal letter of the badge -->
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <!-- Medal Image -->
+                                <span style="margin-left: 10px;">
+                                    <img src="/img/third.png" alt="medal"
+                                        style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white;">
                                 </span>
-                                <p class="text-bold ms-0 mb-0 pt-3">
+
+                                <!-- User Name and Organizations -->
+                                <p class="text-bold ms-0 mb-0" style="margin-left: 10px;">
                                     {{ \Illuminate\Support\Str::limit(implode(' ', array_slice(explode(' ', $thirdTotal->name), 0, 2)), 15, '') }}
                                     <span>
                                         @foreach ($thirdOrgsTotal as $org)
                                             ({{ $org->nickname }})
                                         @endforeach
                                     </span>
-
-
                                 </p>
                             </div>
                             <p class="text-bold">{{ $thirdTotal->total_reputation }}</p>
                         </div>
                     </a>
+
                     @foreach ($topRepTotal as $top)
+                        @php
+                            $badge = '';
+                            switch (true) {
+                                case $top->total_reputation >= 500:
+                                    $badge = 'Expert';
+                                    $badgeColor = '#FFD700'; // Gold
+                                    $textColor = 'black';
+                                    break;
+                                case $top->total_reputation >= 200:
+                                    $badge = 'Active Contributor';
+                                    $badgeColor = '#28a745'; // Green
+                                    $textColor = 'white';
+                                    break;
+                                case $top->total_reputation >= 100:
+                                    $badge = 'Researcher';
+                                    $badgeColor = '#00008B'; // Dark Blue
+                                    $textColor = 'white';
+                                    break;
+                                case $top->total_reputation >= 50:
+                                    $badge = 'Mentor';
+                                    $badgeColor = '#800080'; // Purple
+                                    $textColor = 'white';
+                                    break;
+                                case $top->total_reputation >= 10:
+                                    $badge = 'Collaborator';
+                                    $badgeColor = '#FF8C00'; // Orange
+                                    $textColor = 'white';
+                                    break;
+                                case $top->total_reputation >= 0:
+                                    $badge = 'Newcomer';
+                                    $badgeColor = '#87CEEB'; // Light Blue
+                                    $textColor = 'white';
+                                    break;
+                                default:
+                                    $badge = '';
+                            }
+                        @endphp
                         <a href="/profile/{{ $top->id }}">
                             <div class="card-body d-flex justify-content-between pb-0"
                                 style="padding-bottom: 0; padding-top: 0;">
-                                {{-- @php
-                                    dd($top->photo);
-                                @endphp --}}
-                                <div class="d-flex justify-content-center">
-                                    <img src="/img/no-image.png"
-                                        {{-- {{ --}}
-                                        {{-- !empty($top->photo) ? url($top->photo) : url('/img/no-image.png')}}" --}}
-                                        alt="profile_image"
-                                        class="rounded-circle img-fluid border-white pb-4"
-                                        width="40" height="40">
-                                    <p class="text-bold ms-3">
+
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <!-- Profile Image with Badge -->
+                                    <div style="position: relative; display: inline-block;">
+                                        <img src="{{ !empty($top->photo) ? url($top->photo) : url('/img/no-image.png') }}"
+                                            alt="profile_image"
+                                            style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white;">
+
+                                        <!-- Badge Circle -->
+                                        @if ($badge)
+                                            <span
+                                                style="position: absolute; bottom: 0; right: 0; width: 16px; height: 16px; background-color: {{ $badgeColor }}; color: {{ $textColor }}; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: bold;">
+                                                {{ substr($badge, 0, 1) }} <!-- Display top letter of the badge -->
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <!-- User Name and Organizations -->
+                                    <p class="text-bold ms-0 mb-0" style="margin-left: 10px;">
                                         {{ \Illuminate\Support\Str::limit(implode(' ', array_slice(explode(' ', $top->name), 0, 2)), 15, '') }}
-                                        @php
-                                            $topOrg = $top->organizations()->get();
-                                        @endphp
                                         <span>
+                                            @php
+                                                $topOrg = $top->organizations()->get();
+                                            @endphp
                                             @foreach ($topOrg as $org)
                                                 ({{ $org->nickname }})
                                             @endforeach

@@ -209,7 +209,6 @@ return [
             'arses',
             'arsewhore',
             'arsewipe',
-            'ass',
             'assbag',
             'assbagger',
             'assbandit',

@@ -225,6 +225,11 @@ class PostController extends Controller
             return view('pages.suspended');
         }
     }
+    public function warning()
+    {
+        $user = auth()->user();
+        return view('pages.warning', compact('user'));
+    }
 
 
 

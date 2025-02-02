@@ -136,6 +136,25 @@
                             </a>
                         </li>
                     @endif
+                    @if ($notificationType === 'App\Notifications\WarningNotif')
+                        <li class="divide-y divide-green-100 dark:divide-green-400">
+                            <a wire:click="markAsRead('{{ $notification->id }}')" href="{{ $notification->data['link'] }}"
+                                class="d-flex p-2 hover-bg-green-100 dark-hover-bg-green-400 align-items-center notification-link">
+                                <img class="img-fluid rounded-circle me-3" style="width: 2rem; height: 2rem;"
+                                    src="/img/logo.png" alt="cvsu logo">
+                                    <div class="pl-2 flex-grow-1">
+                                        <div class="text-gray-500 text-sm mb-1 dark-text-black-400">
+                                            <span
+                                                class="font-semibold text-black-600 dark-text-black">
+                                                <strong><h1>YOU HAVE BEEN FLAGGED FOR SUSPICIOUS ACTIVITIES.</h1></strong>
+                                            </span>
+                                        </div>
+                                        <div class="text-xs text-blue-600 dark-text-blue-500">
+                                            {{ $notification->created_at->diffForHumans() }}</div>
+                                </div>
+                            </a>
+                        </li>
+                    @endif
                 @endforeach
             </ul>
             @else

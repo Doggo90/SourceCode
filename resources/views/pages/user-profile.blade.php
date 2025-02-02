@@ -45,12 +45,60 @@
                 <div class="card card-profile ">
                     <div class="row justify-content-center">
                         <div class="col-4 col-lg-4 order-lg-2 d-flex justify-content-center align-items-center">
-                            <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
-                                <img src="
-                                {{-- /img/no-image.png" --}}
-                                {{ !empty($user->photo) ? url($user->photo) : url('/img/no-image.png') }}"
+                            @php
+                                    $badge = '';
+                                    switch (true) {
+                                        case $user->reputation >= 500:
+                                            $badge = 'Expert';
+                                            $badgeColor = '#FFD700'; // Gold
+                                            $textColor = 'black';
+                                            break;
+                                        case $user->reputation >= 200:
+                                            $badge = 'Active Contributor';
+                                            $badgeColor = '#28a745'; // Green
+                                            $textColor = 'white';
+                                            break;
+                                        case $user->reputation >= 100:
+                                            $badge = 'Researcher';
+                                            $badgeColor = '#00008B'; // Dark Blue
+                                            $textColor = 'white';
+                                            break;
+                                        case $user->reputation >= 50:
+                                            $badge = 'Mentor';
+                                            $badgeColor = '#800080'; // Purple
+                                            $textColor = 'white';
+                                            break;
+                                        case $user->reputation >= 10:
+                                            $badge = 'Collaborator';
+                                            $badgeColor = '#FF8C00'; // Orange
+                                            $textColor = 'white';
+                                            break;
+                                        case $user->reputation >= 0:
+                                            $badge = 'Newcomer';
+                                            $badgeColor = '#87CEEB'; // Light Blue
+                                            $textColor = 'white';
+                                            break;
+                                        default:
+                                            $badge = '';
+                                    }
+                                @endphp
+                            <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0" style="position: relative; display: inline-block;">
+                                <!-- Profile Image -->
+                                <img src="{{ !empty($user->photo) ? url($user->photo) : url('/img/no-image.png') }}"
                                     alt="profile_image" class="rounded-circle img-fluid border border-2 border-white"
-                                    width="200" height="200">
+                                    style="width: 200px; height: 200px;">
+
+                                <!-- Badge Circle -->
+                                @if ($badge)
+                                    <span style="position: absolute; bottom: 10px; right: 10px; width: 40px; height: 40px; background-color: {{ $badgeColor }}; color: {{ $textColor }}; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold;">
+                                        {{ substr($badge, 0, 1) }} <!-- Display first letter of the badge -->
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="absolute top-0 right-0 mt-2 mr-2">
+                                @if(auth()->user()->id != $user->id)
+                                    <livewire:user-report :key="$user->id" :$user />
+                                @endif
                             </div>
                         </div>
                     </div>

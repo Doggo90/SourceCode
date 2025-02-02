@@ -8,10 +8,58 @@
                 <form wire:submit="createComment" class="row g-3 mb-4" action="">
                     @csrf
                     <div class="col-auto">
-                        <a href="/profile/{{ auth()->user()->id }}"><img class="img-fluid rounded-circle"
-                                style="width: 3rem; height: 3rem;"
+                        <a href="/profile/{{ auth()->user()->id }}" class="relative inline-block">
+                            <!-- User Image -->
+                            <img class="img-fluid rounded-circle" style="width: 3rem; height: 3rem;"
                                 src="{{ !empty(auth()->user()->photo) ? url(auth()->user()->photo) : url('/img/no-image.png') }}"
                                 alt="profile">
+
+                            <!-- Badge based on reputation -->
+                            @php
+                                $badge = '';
+                                switch (true) {
+                                    case (auth()->user()->reputation >= 500):
+                                        $badge = 'Expert';
+                                        $badgeColor = '#FFD700'; // Gold
+                                        $textColor = 'black';
+                                        break;
+                                    case (auth()->user()->reputation >= 200):
+                                        $badge = 'Active Contributor';
+                                        $badgeColor = '#28a745'; // Green
+                                        $textColor = 'white';
+                                        break;
+                                    case (auth()->user()->reputation >= 100):
+                                        $badge = 'Researcher';
+                                        $badgeColor = '#00008B'; // Dark Blue
+                                        $textColor = 'white';
+                                        break;
+                                    case (auth()->user()->reputation >= 50):
+                                        $badge = 'Mentor';
+                                        $badgeColor = '#800080'; // Purple
+                                        $textColor = 'white';
+                                        break;
+                                    case (auth()->user()->reputation >= 10):
+                                        $badge = 'Collaborator';
+                                        $badgeColor = '#FF8C00'; // Orange
+                                        $textColor = 'white';
+                                        break;
+                                    case (auth()->user()->reputation >= 0):
+                                        $badge = 'Newcomer';
+                                        $badgeColor = '#87CEEB'; // Light Blue
+                                        $textColor = 'white';
+                                        break;
+                                    default:
+                                        $badge = '';
+                                }
+                            @endphp
+
+                            <!-- Badge Circle -->
+                            @if ($badge)
+                            <span class="absolute bottom-0 right-0 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold"
+                            style="background-color: {{ $badgeColor }}; color: {{ $textColor }}; transform: translate(25%, 25%); width: 20px; height: 20px;">
+                            {{ substr($badge, 0, 1) }} <!-- Display first letter of the badge -->
+                        </span>
+                            @endif
                         </a>
                     </div>
                     <div class="col position-relative" x-data="{
@@ -173,9 +221,55 @@
                         <div x-data="{ open: false }" class="d-flex flex-column">
                             <div class="flex-shrink-0 position-absolute">
                                 <a href="/profile/{{ $comment->author->id }}">
-                                    <img class="img-fluid rounded-circle" style="width: 3rem; height: 3rem;"
-                                        src="{{ !empty($comment->author->photo) ? url($comment->author->photo) : url('/img/no-image.png') }}"
-                                        alt="...">
+                                    <div style="position: relative; display: inline-block;">
+                                        <img class="img-fluid rounded-circle" style="width: 3rem; height: 3rem;"
+                                            src="{{ !empty($comment->author->photo) ? url($comment->author->photo) : url('/img/no-image.png') }}"
+                                            alt="{{ $comment->author->name }}">
+
+                                        {{--  Badge based on reputation  --}}
+                                        @php
+                                            $badge = '';
+                                            switch (true) {
+                                                case ($comment->author->reputation >= 1000):
+                                                    $badge = 'Expert';
+                                                    $badgeColor = '#FFD700';
+                                                    $textColor = 'black';
+                                                    break;
+                                                case ($comment->author->reputation >= 200):
+                                                    $badge = 'Active Contributor';
+                                                    $badgeColor = '#28a745';
+                                                    $textColor = 'white';
+                                                    break;
+                                                case ($comment->author->reputation >= 100):
+                                                    $badge = 'Researcher';
+                                                    $badgeColor = '#00008B';
+                                                    $textColor = 'white';
+                                                    break;
+                                                case ($comment->author->reputation >= 50):
+                                                    $badge = 'Mentor';
+                                                    $badgeColor = '#800080';
+                                                    $textColor = 'white';
+                                                    break;
+                                                case ($comment->author->reputation >= 10):
+                                                    $badge = 'Collaborator';
+                                                    $badgeColor = '#FF8C00';
+                                                    $textColor = 'white';
+                                                    break;
+                                                case ($comment->author->reputation >= 0):
+                                                    $badge = 'Newcomer';
+                                                    $badgeColor = '#87CEEB';
+                                                    $textColor = 'white';
+                                                    break;
+                                                default:
+                                                    $badge = '';
+                                            }
+                                        @endphp
+                                        @if ($badge)
+                                            <span style="position: absolute; bottom: -5px; right: -5px; background-color: {{ $badgeColor }}; color: {{ $textColor }}; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; border: 2px solid white;">
+                                                {{ substr($badge, 0, 1) }} <!-- Display first letter of the badge -->
+                                            </span>
+                                        @endif
+                                    </div>
                                 </a>
                             </div>
                             <div class="ms-5 p-2 mt-0 d-flex flex-column w-100">

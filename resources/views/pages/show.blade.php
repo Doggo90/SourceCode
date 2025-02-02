@@ -11,16 +11,15 @@
                     <div class="col-lg-12">
                         <div class="card mb-4">
                             <div class="card-header">
-                                <!-- Post title-->
-                                <h2 class="fw-bolder mb-1">{{$post->title}}</h2>
-                                {{-- @php
-                                    dd($post1);
-                                @endphp --}}
+                                <div class="flex justify-between items-center">
+                                    <h2 class="fw-bolder mb-1">{{$post->title}}</h2>
+                                    <livewire:post-report :key="$post->id" :$post />
+                                </div>
                                 <ul class="flex list-inline mb-0">
                                     @foreach($post1->categories as $category)
                                     <li class="badge bg-secondary text-decoration-none link-light list-inline-item">
                                         <a href="/category/{{$category->id}}" style="text-decoration: none; color:white; ">
-                                        {{$category->name}}
+                                            {{$category->name}}
                                         </a>
                                     </li>
                                     @endforeach
