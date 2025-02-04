@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Notifications\ReplyNotif;
 use App\Notifications\MentionNotif;
 use Xetaio\Mentions\Parser\MentionParser;
+use Blaspsoft\Blasp\Facades\Blasp;
 
 class ReplySection extends Component
 {
@@ -47,6 +48,13 @@ class ReplySection extends Component
         $this->validate([
             'body' => 'required | min:2',
         ]);
+        $blasp = Blasp::check($this->body);
+        // dd($blasp->uniqueProfanitiesFound);
+        if($blasp->hasProfanity()){
+            $profanities = implode(', ', $blasp->uniqueProfanitiesFound);
+            flash('Profanity Detected! Words: ' . $profanities, 'warning' );
+            return;
+        }
         $comments2 = Comment::where('post_id', $this->comment->id)->get();
         $reply = Reply::create([
             'user_id' => auth()->user()->id,

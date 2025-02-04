@@ -12,6 +12,7 @@ use App\Notifications\CommentNotif;
 use App\Notifications\MentionNotif;
 use Livewire\Attributes\Url;
 use Xetaio\Mentions\Parser\MentionParser;
+use Blaspsoft\Blasp\Facades\Blasp;
 
 class CommentSection extends Component
 {
@@ -35,9 +36,17 @@ class CommentSection extends Component
 }
     public function createComment()
     {
+
         $this->validate([
             'comment_body' => 'required | min:2',
         ]);
+        $blasp = Blasp::check($this->comment_body);
+        // dd($blasp->uniqueProfanitiesFound);
+        if($blasp->hasProfanity()){
+            $profanities = implode(', ', $blasp->uniqueProfanitiesFound);
+            flash('Profanity Detected! Words: ' . $profanities, 'warning' );
+            return;
+        }
         $comments2 = Comment::where('post_id', $this->post->id)->get();
         if ($comments2->where('user_id', auth()->user()->id)->count() > 0) {
             toastr()->error('You already commented on this post.');

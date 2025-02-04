@@ -27,9 +27,10 @@ class CreatePost extends Component
             return;
         }
         $blasp = Blasp::check($this->body);
-        // dd($blasp->hasProfanity());
+        // dd($blasp->uniqueProfanitiesFound);
         if($blasp->hasProfanity()){
-            return redirect('/dashboard')->with('error', 'Profanity Detected!');
+            $profanities = implode(', ', $blasp->uniqueProfanitiesFound);
+            return redirect('/dashboard')->with('warning', 'Profanity Detected! Words: ' . $profanities);
         }
         $this->validate([
             'title' => 'required | min:2',

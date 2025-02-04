@@ -27,7 +27,8 @@ class PostReport extends Component
         $blasp = Blasp::check($this->reason);
         // dd($blasp);
         if ($blasp->hasProfanity()) {
-            flash('Profanity Detected!', 'error');
+            $profanities = implode(', ', $blasp->uniqueProfanitiesFound);
+            flash('Profanity Detected! Words: '. $profanities, 'warning');
             $this->reset('reason');
             return;
         }

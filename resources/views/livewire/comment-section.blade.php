@@ -18,32 +18,32 @@
                             @php
                                 $badge = '';
                                 switch (true) {
-                                    case (auth()->user()->reputation >= 500):
+                                    case auth()->user()->reputation >= 500:
                                         $badge = 'Expert';
                                         $badgeColor = '#FFD700'; // Gold
                                         $textColor = 'black';
                                         break;
-                                    case (auth()->user()->reputation >= 200):
+                                    case auth()->user()->reputation >= 200:
                                         $badge = 'Active Contributor';
                                         $badgeColor = '#28a745'; // Green
                                         $textColor = 'white';
                                         break;
-                                    case (auth()->user()->reputation >= 100):
+                                    case auth()->user()->reputation >= 100:
                                         $badge = 'Researcher';
                                         $badgeColor = '#00008B'; // Dark Blue
                                         $textColor = 'white';
                                         break;
-                                    case (auth()->user()->reputation >= 50):
+                                    case auth()->user()->reputation >= 50:
                                         $badge = 'Mentor';
                                         $badgeColor = '#800080'; // Purple
                                         $textColor = 'white';
                                         break;
-                                    case (auth()->user()->reputation >= 10):
+                                    case auth()->user()->reputation >= 10:
                                         $badge = 'Collaborator';
                                         $badgeColor = '#FF8C00'; // Orange
                                         $textColor = 'white';
                                         break;
-                                    case (auth()->user()->reputation >= 0):
+                                    case auth()->user()->reputation >= 0:
                                         $badge = 'Newcomer';
                                         $badgeColor = '#87CEEB'; // Light Blue
                                         $textColor = 'white';
@@ -55,10 +55,11 @@
 
                             <!-- Badge Circle -->
                             @if ($badge)
-                            <span class="absolute bottom-0 right-0 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold"
-                            style="background-color: {{ $badgeColor }}; color: {{ $textColor }}; transform: translate(25%, 25%); width: 20px; height: 20px;">
-                            {{ substr($badge, 0, 1) }} <!-- Display first letter of the badge -->
-                        </span>
+                                <span
+                                    class="absolute bottom-0 right-0 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold"
+                                    style="background-color: {{ $badgeColor }}; color: {{ $textColor }}; transform: translate(25%, 25%); width: 20px; height: 20px;">
+                                    {{ substr($badge, 0, 1) }} <!-- Display first letter of the badge -->
+                                </span>
                             @endif
                         </a>
                     </div>
@@ -73,11 +74,24 @@
                             }
                         }
                     }">
-                        <textarea class="form-control" rows="1" name="comment_body" id="comment_body" wire:model="comment_body"
-                            wire:model.live.debounce.500ms="search" @keydown.="handleKeydown"
-                            placeholder="Join the discussion and leave a comment!" wire:keydown.enter="createComment" maxlength='200'
-                            minlength='2'>
-                        </textarea>
+                        <div class="position-relative">
+                            <textarea class="form-control pr-10" rows="2" name="comment_body" id="comment_body" wire:model="comment_body"
+                                wire:model.live.debounce.500ms="search" @keydown="handleKeydown"
+                                placeholder="Join the discussion and leave a comment!" wire:keydown.enter="createComment" maxlength='200'
+                                minlength='2'>
+                            </textarea>
+                            <button type="submit"
+                                class="position-absolute bottom-0 end-0 px-3 py-2  me-2 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                                style="top: 50%; transform: translateY(-50%);">
+                                <span class="d-flex align-items-center justify-content-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="size-4">
+                                        <path
+                                            d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
                         <div x-show="open" @click.away="open = false" x-cloak class="card">
                             <ul class="mt-0 margin-auto card-header" style="list-style-type: none">
                                 @php
@@ -91,17 +105,13 @@
                                         ->get();
                                 @endphp
 
-                                {{-- <h1>{{ substr($search, 1) }}</h1> --}}
                                 @foreach ($results as $result)
-                                    {{-- <h1>{{ $search }}</h1> --}}
                                     <div class="random">
                                         <li>
                                             <a wire:click="addMentionedUser('{{ $result->email }}'),open = false"
                                                 href="#" class="d-flex align-items-center">
                                                 <img class="img-fluid rounded-circle me-3"
-                                                    style="width: 2rem; height: 2rem;"
-                                                    src="/img/no-image.png"
-                                                    {{-- {{ !empty($result->photo) ? url($result->photo) : url('/img/no-image.png') }}" --}}
+                                                    style="width: 2rem; height: 2rem;" src="/img/no-image.png"
                                                     alt="commenter img">
                                                 <div class="pl-2 flex-grow-1">
                                                     <div class="text-gray-500 text-sm mb-1 dark-text-black-400">
@@ -117,21 +127,10 @@
                                 @endforeach
                             </ul>
                         </div>
-                        {{-- <button type="submit"
-                            class="btn btn-success position-absolute bottom-0 end-0 mb-2 me-4 justify-items-center">
-
-                        </button> --}}
-                        <button type="submit" class="py-2 px-2 position-absolute bottom-0 end-0 mb-2 me-4 justify-items-center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm  dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                            <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
-                                <path d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z" />
-                              </svg>
-                              </span>
-                        </button>
                         @error('comment_body')
                             <p class="p text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-
                     <br>
                 </form>
             @else
@@ -230,32 +229,32 @@
                                         @php
                                             $badge = '';
                                             switch (true) {
-                                                case ($comment->author->reputation >= 1000):
+                                                case $comment->author->reputation >= 1000:
                                                     $badge = 'Expert';
                                                     $badgeColor = '#FFD700';
                                                     $textColor = 'black';
                                                     break;
-                                                case ($comment->author->reputation >= 200):
+                                                case $comment->author->reputation >= 200:
                                                     $badge = 'Active Contributor';
                                                     $badgeColor = '#28a745';
                                                     $textColor = 'white';
                                                     break;
-                                                case ($comment->author->reputation >= 100):
+                                                case $comment->author->reputation >= 100:
                                                     $badge = 'Researcher';
                                                     $badgeColor = '#00008B';
                                                     $textColor = 'white';
                                                     break;
-                                                case ($comment->author->reputation >= 50):
+                                                case $comment->author->reputation >= 50:
                                                     $badge = 'Mentor';
                                                     $badgeColor = '#800080';
                                                     $textColor = 'white';
                                                     break;
-                                                case ($comment->author->reputation >= 10):
+                                                case $comment->author->reputation >= 10:
                                                     $badge = 'Collaborator';
                                                     $badgeColor = '#FF8C00';
                                                     $textColor = 'white';
                                                     break;
-                                                case ($comment->author->reputation >= 0):
+                                                case $comment->author->reputation >= 0:
                                                     $badge = 'Newcomer';
                                                     $badgeColor = '#87CEEB';
                                                     $textColor = 'white';
@@ -265,7 +264,8 @@
                                             }
                                         @endphp
                                         @if ($badge)
-                                            <span style="position: absolute; bottom: -5px; right: -5px; background-color: {{ $badgeColor }}; color: {{ $textColor }}; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; border: 2px solid white;">
+                                            <span
+                                                style="position: absolute; bottom: -5px; right: -5px; background-color: {{ $badgeColor }}; color: {{ $textColor }}; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; border: 2px solid white;">
                                                 {{ substr($badge, 0, 1) }} <!-- Display first letter of the badge -->
                                             </span>
                                         @endif
@@ -315,7 +315,7 @@
 
                                                 $modifiedCommentBody = preg_replace(
                                                     '/@' . preg_quote($username, '/') . '\b/',
-                                                    "<a href='$profileLink'>@".$username."</a>",
+                                                    "<a href='$profileLink'>@" . $username . '</a>',
                                                     $modifiedCommentBody,
                                                     1,
                                                     $count,
