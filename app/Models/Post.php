@@ -37,7 +37,7 @@ class Post extends Model
 
         static::created(function ($post) {
             $user = $post->user;
-            $user->increment('reputation', 1);
+            // $user->increment('reputation', 1);
         });
     }
     public function user(): belongsTo

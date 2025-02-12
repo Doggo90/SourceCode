@@ -71,7 +71,7 @@ class UserResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->copyable()
-                    ->copyMessage('Email address copied')
+                    ->copyMessage('Name copied')
                     ->copyMessageDuration(1500)
                     ->searchable()
                     ->sortable(),
@@ -85,9 +85,9 @@ class UserResource extends Resource
                     ->copyMessageDuration(1500)
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('phone')
-                    ->searchable()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('phone')
+                //     ->searchable()
+                //     ->sortable(),
 
                 Tables\Columns\TextColumn::make('role')
                     ->badge()
@@ -101,6 +101,8 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('reputation')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('bio')
+                ->words(3)
+                ->toggleable()
                 ->searchable()
                 ->sortable(),
             ])
@@ -116,94 +118,94 @@ class UserResource extends Resource
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
-                    Tables\Actions\Action::make('reset_reputation')
-                        ->label('Reset Reputation')
-                        ->icon('heroicon-o-arrow-path')
-                        ->color('warning')
-                        ->action(function(User $user){
-                            $user->total_reputation += $user->reputation;
-                            $user->reputation = 0;
-                            $user->save();
-                            Notification::make()
-                                ->title('Reputation Reset Success!')
-                                ->body('Selected users&rsquo; reputations have been reset.')
-                                ->icon('heroicon-o-arrow-path')
-                                ->color('success')
-                                ->send();
-                        }),
-                        Tables\Actions\Action::make('Suspend User')
-                        ->label('Suspend/Unsuspend User')
-                        ->icon('heroicon-o-eye-slash')
-                        ->color('info')
-                        ->action(function(User $user){
-                            if ($user->is_suspended == false) {
-                                $user->is_suspended = true;
-                                $user->save();
-                                Notification::make()
-                                    ->title('Suspended Successfully!')
-                                    ->body('Selected user have been suspended.')
-                                    ->icon('heroicon-o-eye-slash')
-                                    ->color('info')
-                                    ->send();
-                            } else {
-                                $user->is_suspended = false;
-                                $user->save();
-                                Notification::make()
-                                    ->title('Approval Removed Successfully!')
-                                    ->body('Selected user have been un-suspended.')
-                                    ->icon('heroicon-o-eye-slash')
-                                    ->color('success')
-                                    ->send();
-                            }
-                        }),
+                    // Tables\Actions\Action::make('reset_reputation')
+                    //     ->label('Reset Reputation')
+                    //     ->icon('heroicon-o-arrow-path')
+                    //     ->color('warning')
+                    //     ->action(function(User $user){
+                    //         $user->total_reputation += $user->reputation;
+                    //         $user->reputation = 0;
+                    //         $user->save();
+                    //         Notification::make()
+                    //             ->title('Reputation Reset Success!')
+                    //             ->body('Selected users&rsquo; reputations have been reset.')
+                    //             ->icon('heroicon-o-arrow-path')
+                    //             ->color('success')
+                    //             ->send();
+                    //     }),
+                    //     Tables\Actions\Action::make('Suspend User')
+                    //     ->label('Suspend/Unsuspend User')
+                    //     ->icon('heroicon-o-eye-slash')
+                    //     ->color('info')
+                    //     ->action(function(User $user){
+                    //         if ($user->is_suspended == false) {
+                    //             $user->is_suspended = true;
+                    //             $user->save();
+                    //             Notification::make()
+                    //                 ->title('Suspended Successfully!')
+                    //                 ->body('Selected user have been suspended.')
+                    //                 ->icon('heroicon-o-eye-slash')
+                    //                 ->color('info')
+                    //                 ->send();
+                    //         } else {
+                    //             $user->is_suspended = false;
+                    //             $user->save();
+                    //             Notification::make()
+                    //                 ->title('Approval Removed Successfully!')
+                    //                 ->body('Selected user have been un-suspended.')
+                    //                 ->icon('heroicon-o-eye-slash')
+                    //                 ->color('success')
+                    //                 ->send();
+                    //         }
+                    //     }),
                 ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\BulkAction::make('reset_reputation')
-                        ->label('Reset Reputation')
-                        ->icon('heroicon-o-arrow-path')
-                        ->color('warning')
-                        ->deselectRecordsAfterCompletion()
-                        ->action(function (Collection $records) {
-                            $records->each(function ($record){
-                                $record->total_reputation += $record->reputation;
-                                $record->reputation = 0;
-                                $record->save();
-                                Notification::make()
-                                    ->title(__('Reset Successfully!'))
-                                    ->body(__('Selected users reputation have been reset.'))
-                                    ->icon('heroicon-s-check')
-                                    ->color('success')
-                                    ->send();
-                            });
-                        }),
-                        Tables\Actions\BulkAction::make('Suspend Users')
-                        ->label('Suspend Users')
-                        ->icon('heroicon-o-eye-slash')
-                        ->color('danger')
-                        ->deselectRecordsAfterCompletion()
-                        ->action(function (Collection $records) {
-                            $records->each(function ($record){
-                                $record->is_suspended = !$record->is_suspended;
-                                $record->save();
-                                if ($record->is_suspended) {
-                                    Notification::make()
-                                        ->title(__('Users Suspended!'))
-                                        ->body(__('Selected users have been suspended.'))
-                                        ->icon('heroicon-o-eye-slash')
-                                        ->color('info')
-                                        ->send();
-                                } else {
-                                    Notification::make()
-                                        ->title(__('Suspension Removed Successfully!'))
-                                        ->body(__('Selected posts suspension has been lifted.'))
-                                        ->icon('heroicon-o-eye')
-                                        ->color('success')
-                                        ->send();
-                                }
-                            });
-                        }),
+                    // Tables\Actions\BulkAction::make('reset_reputation')
+                    //     ->label('Reset Reputation')
+                    //     ->icon('heroicon-o-arrow-path')
+                    //     ->color('warning')
+                    //     ->deselectRecordsAfterCompletion()
+                    //     ->action(function (Collection $records) {
+                    //         $records->each(function ($record){
+                    //             $record->total_reputation += $record->reputation;
+                    //             $record->reputation = 0;
+                    //             $record->save();
+                    //             Notification::make()
+                    //                 ->title(__('Reset Successfully!'))
+                    //                 ->body(__('Selected users reputation have been reset.'))
+                    //                 ->icon('heroicon-s-check')
+                    //                 ->color('success')
+                    //                 ->send();
+                    //         });
+                    //     }),
+                    //     Tables\Actions\BulkAction::make('Suspend Users')
+                    //     ->label('Suspend Users')
+                    //     ->icon('heroicon-o-eye-slash')
+                    //     ->color('danger')
+                    //     ->deselectRecordsAfterCompletion()
+                    //     ->action(function (Collection $records) {
+                    //         $records->each(function ($record){
+                    //             $record->is_suspended = !$record->is_suspended;
+                    //             $record->save();
+                    //             if ($record->is_suspended) {
+                    //                 Notification::make()
+                    //                     ->title(__('Users Suspended!'))
+                    //                     ->body(__('Selected users have been suspended.'))
+                    //                     ->icon('heroicon-o-eye-slash')
+                    //                     ->color('info')
+                    //                     ->send();
+                    //             } else {
+                    //                 Notification::make()
+                    //                     ->title(__('Suspension Removed Successfully!'))
+                    //                     ->body(__('Selected posts suspension has been lifted.'))
+                    //                     ->icon('heroicon-o-eye')
+                    //                     ->color('success')
+                    //                     ->send();
+                    //             }
+                    //         });
+                    //     }),
                 ]),
             ]);
     }

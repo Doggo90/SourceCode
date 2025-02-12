@@ -24,15 +24,6 @@ class UsersTableSeeder extends Seeder
                 'role' => 'admin',
                 'status' => 'active',
             ],
-             // Agent
-             [
-                'name' => 'Agent',
-                'username' => 'agent',
-                'email' => 'agent@agent.com',
-                'password' => Hash::make('111'),
-                'role' => 'agent',
-                'status' => 'active',
-            ],
              // User
              [
                 'name' => 'User',

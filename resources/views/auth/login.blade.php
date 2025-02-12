@@ -14,7 +14,7 @@
                             <div class="bg-white rounded-start shadow-lg p-3 col-12 col-md-6">
                                 <div class="p-2">
                                     <h2 class="display-6">WELCOME TO</h2>
-                                    <h1 class="display-6">CvSU TANZA</h1>
+                                    <h1 class="display-6">CvSU TANZA </h1>
                                     <h1 class="display-6 padding-bottom: 5%;">ACADEMIC FORUM</h1>
                                     <a href="/auth/google/redirect" class="btn btn-info">
                                         <i class="fa fa-google"></i>

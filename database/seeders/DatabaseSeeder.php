@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         ]);
         \App\Models\User::factory(6)->create();
 
-        
+
         Post::factory()->count(20)->create();
         Comment::factory()->count(20)->create();
         User::all()->each(function ($user) {

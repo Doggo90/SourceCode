@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->integer('reputation')->default(0);
             $table->integer('likes_counter')->default(0);
+            $table->integer('reports_counter')->default(0);
+            $table->timestamp('suspended_until')->nullable();
+            $table->integer('warnings')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('google_id')->nullable();
@@ -27,7 +30,7 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
-            $table->string('bio')->nullable();
+            $table->text('bio')->nullable();
             $table->enum('role', ['admin', 'agent', 'user'])->default('user');
             $table->enum('status',['active', 'inactive'])->default('inactive');
             $table->rememberToken();
